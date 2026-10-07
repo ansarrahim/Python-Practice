@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umikoe Website Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0E3A53;--mute:#5B7280;--line:#E1E8EC;--bg:#F4F7F9;--sun:#F5B82E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  header.wrap{padding-top:64px;padding-bottom:36px}
+  .k{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1D7A9C}
+  h1{font-size:clamp(30px,4.4vw,50px);line-height:1.1;letter-spacing:-.02em;margin-top:10px}
+  header p{color:var(--mute);font-size:18px;max-width:64ch;margin-top:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding-bottom:40px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s}
+  .card:hover{box-shadow:0 24px 50px rgba(14,58,83,.12);transform:translateY(-3px)}
+  .shots{position:relative;background:#E9EFF2;aspect-ratio:16/10;overflow:hidden}
+  .shots img.d{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+  .shots img.m{position:absolute;right:16px;bottom:-30px;width:22%;border-radius:14px;border:4px solid #0B1F2B;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+  .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+  .num{font-size:13px;font-weight:700;color:var(--mute)}
+  h2{font-size:24px;letter-spacing:-.01em;margin-top:2px}
+  .body p{color:var(--mute);margin-top:8px;flex:1}
+  ul{list-style:none;margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  li{font-size:12.5px;font-weight:600;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+  .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;text-decoration:none;padding:11px 18px;border-radius:12px;background:var(--ink);color:#fff}
+  .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .common{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;margin-bottom:60px}
+  .common h3{font-size:20px}
+  .common ul{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 24px;margin-top:16px}
+  .common li{background:none;border:0;padding:0 0 0 22px;font-size:15px;font-weight:500;border-radius:0;position:relative}
+  .common li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;background:var(--sun)}
+  footer{padding:0 0 50px;color:var(--mute);font-size:14px}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}.common ul{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="k">Umikoe · website redesign</div>
+  <h1>Four design directions</h1>
+  <p>Each concept is a working website, not a picture: switch to 日本語, filter products, open a product, and send a test request. Open them on your phone too. Pick a favourite, or mix parts of several.</p>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <article class="card">
+      <div class="shots"><img class="d" src="screenshots/demo-1-harbor.jpg" alt="Harbor concept, desktop"><img class="m" src="screenshots/demo-1-harbor-mobile.jpg" alt="Harbor concept, phone"></div>
+      <div class="body">
+        <span class="num">Concept 1</span>
+        <h2>Harbor: the current design, refined</h2>
+        <p>Keeps your colours, fonts and illustrated port scene, and polishes every section. The safest step from what you have today.</p>
+        <ul><li>Animated port scene</li><li>Market selector</li><li>FAQ</li><li>Floating request button on phones</li></ul>
+        <div class="actions"><a class="btn" href="demo-1-harbor.html">Open concept →</a><a class="btn alt" href="demo-1-harbor.html?lang=ja">日本語で見る</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shots"><img class="d" src="screenshots/demo-2-washi.jpg" alt="Washi concept, desktop"><img class="m" src="screenshots/demo-2-washi-mobile.jpg" alt="Washi concept, phone"></div>
+      <div class="body">
+        <span class="num">Concept 2</span>
+        <h2>Washi: calm Japanese editorial</h2>
+        <p>Paper tones, sumi ink, a vermilion seal and vertical Japanese type. Feels premium and unmistakably Japanese, which suits gift and gourmet buyers.</p>
+        <ul><li>Vertical 海を越えて title</li><li>Product index list</li><li>Numbered chapters</li><li>Minimal form</li></ul>
+        <div class="actions"><a class="btn" href="demo-2-washi.html">Open concept →</a><a class="btn alt" href="demo-2-washi.html?lang=ja">日本語で見る</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shots"><img class="d" src="screenshots/demo-3-tradedesk.jpg" alt="Trade Desk concept, desktop"><img class="m" src="screenshots/demo-3-tradedesk-mobile.jpg" alt="Trade Desk concept, phone"></div>
+      <div class="body">
+        <span class="num">Concept 3</span>
+        <h2>Trade Desk: modern B2B platform</h2>
+        <p>Dark, confident, software-style. Built to turn visitors into requests: a quick-start box in the hero and a guided 3-step request form with a review screen.</p>
+        <ul><li>Quick start in hero</li><li>Product search</li><li>3-step request wizard</li><li>Market tabs</li></ul>
+        <div class="actions"><a class="btn" href="demo-3-tradedesk.html">Open concept →</a><a class="btn alt" href="demo-3-tradedesk.html?lang=ja">日本語で見る</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="shots"><img class="d" src="screenshots/demo-4-voyage.jpg" alt="Voyage concept, desktop"><img class="m" src="screenshots/demo-4-voyage-mobile.jpg" alt="Voyage concept, phone"></div>
+      <div class="body">
+        <span class="num">Concept 4</span>
+        <h2>Voyage: bold and memorable</h2>
+        <p>Shipping-container colours, chunky type and playful motion. Stands out from typical trading-company sites and is easy to remember.</p>
+        <ul><li>Containers drop in</li><li>Interactive route map</li><li>Swipeable products</li><li>Scrolling product ticker</li></ul>
+        <div class="actions"><a class="btn" href="demo-4-voyage.html">Open concept →</a><a class="btn alt" href="demo-4-voyage.html?lang=ja">日本語で見る</a></div>
+      </div>
+    </article>
+  </div>
+
+  <section class="common">
+    <h3>Included in every concept</h3>
+    <ul>
+      <li>English and Japanese, one click</li>
+      <li>Phone, tablet and desktop layouts</li>
+      <li>Product filters and detail pop-ups</li>
+      <li>“Ask about this product” fills the form</li>
+      <li>Request form with error checks</li>
+      <li>Ready to send requests to your inbox</li>
+      <li>Keyboard and screen-reader friendly</li>
+      <li>Respects “reduce motion” settings</li>
+      <li>Fast: no heavy frameworks</li>
+    </ul>
+  </section>
+</main>
+<footer class="wrap">Design concepts for discussion. Wording added for the demos (FAQ answers, market notes) needs your confirmation before launch.</footer>
+</body>
+</html>

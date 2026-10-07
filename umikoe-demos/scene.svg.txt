@@ -1,0 +1,75 @@
+<svg class="scene" viewBox="0 0 1440 520" role="img" aria-label="A cargo ship leaving a Japanese port with Mount Fuji behind it, sailing toward a city across the sea">
+        <!-- sky -->
+        <circle cx="1058" cy="230" r="64" fill="#F8CE62"/>
+        <g fill="#FFFFFF">
+          <rect x="560" y="150" width="130" height="26" rx="13"/><rect x="600" y="134" width="70" height="26" rx="13"/>
+          <rect x="1180" y="118" width="110" height="22" rx="11"/><rect x="1210" y="104" width="56" height="22" rx="11"/>
+        </g>
+        <path d="M760 196 q9 -9 18 0 q9 -9 18 0 M812 172 q7 -7 14 0 q7 -7 14 0" fill="none" stroke="#0E3A53" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- Japan side -->
+        <path d="M20 348 L250 150 Q262 142 274 150 L522 348 Z" fill="#B9D6DE"/>
+        <path d="M250 150 Q262 142 274 150 L312 180 L294 172 L280 188 L264 174 L248 188 L232 172 L215 180 Z" fill="#FFFFFF"/>
+
+        <!-- far sea -->
+        <rect x="0" y="340" width="1440" height="180" fill="#3A9DBD"/>
+
+        <!-- city side -->
+        <g>
+          <rect x="1158" y="250" width="42" height="80" fill="#B9D6DE"/>
+          <rect x="1204" y="212" width="34" height="118" fill="#9CC3CE"/>
+          <rect x="1242" y="168" width="30" height="162" fill="#B9D6DE"/><rect x="1255" y="124" width="4" height="46" fill="#B9D6DE"/>
+          <rect x="1276" y="232" width="46" height="98" fill="#9CC3CE"/>
+          <rect x="1326" y="190" width="38" height="140" fill="#B9D6DE"/>
+          <rect x="1368" y="246" width="72" height="84" fill="#9CC3CE"/>
+          <g fill="#FFFFFF" opacity=".75">
+            <rect x="1211" y="224" width="6" height="8"/><rect x="1224" y="224" width="6" height="8"/><rect x="1211" y="244" width="6" height="8"/><rect x="1224" y="244" width="6" height="8"/><rect x="1211" y="264" width="6" height="8"/><rect x="1224" y="264" width="6" height="8"/>
+            <rect x="1334" y="204" width="6" height="8"/><rect x="1349" y="204" width="6" height="8"/><rect x="1334" y="226" width="6" height="8"/><rect x="1349" y="226" width="6" height="8"/><rect x="1334" y="248" width="6" height="8"/><rect x="1349" y="248" width="6" height="8"/>
+            <rect x="1286" y="246" width="6" height="8"/><rect x="1304" y="246" width="6" height="8"/><rect x="1286" y="268" width="6" height="8"/><rect x="1304" y="268" width="6" height="8"/>
+          </g>
+          <rect x="1130" y="324" width="310" height="22" fill="#E3ECEF"/>
+          <rect x="1130" y="346" width="310" height="174" fill="#A9BEC6"/>
+        </g>
+
+        <!-- Japan quay -->
+        <g>
+          <rect x="0" y="324" width="392" height="22" fill="#E3ECEF"/>
+          <rect x="0" y="346" width="392" height="174" fill="#A9BEC6"/>
+          <!-- warehouse -->
+          <rect x="34" y="264" width="118" height="60" fill="#FFFFFF"/>
+          <path d="M24 266 L93 238 L162 266 Z" fill="#0E3A53"/>
+          <rect x="78" y="290" width="30" height="34" fill="#9CCBD6"/>
+          <!-- stacked containers -->
+          <g>
+            <rect x="176" y="306" width="34" height="18" fill="#E8644A"/><rect x="212" y="306" width="34" height="18" fill="#1D7A9C"/><rect x="248" y="306" width="34" height="18" fill="#F5B82E"/>
+            <rect x="194" y="286" width="34" height="18" fill="#FFFFFF"/><rect x="230" y="286" width="34" height="18" fill="#3FA796"/>
+            <rect x="212" y="266" width="34" height="18" fill="#E8644A"/>
+          </g>
+          <!-- crane -->
+          <g fill="none" stroke="#E8644A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M306 324 L314 204 M370 324 L362 204 M309 284 L367 244 M311 244 L365 284"/>
+            <path d="M284 204 H470"/>
+            <path d="M314 204 L338 160 L362 204 M338 160 L466 204 M338 160 L288 204" stroke-width="3"/>
+          </g>
+          <rect x="420" y="198" width="26" height="12" fill="#0E3A53"/>
+          <path d="M427 210 V246 M439 210 V246" stroke="#0E3A53" stroke-width="2"/>
+          <rect x="416" y="246" width="34" height="18" fill="#F5B82E"/>
+        </g>
+
+        <!-- ship -->
+        <g class="ship"><g class="bob"><g transform="translate(630 0)">
+          <path d="M-58 356 h40 M-108 356 h28" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+          <rect x="34" y="214" width="20" height="28" fill="#F5B82E"/><rect x="34" y="214" width="20" height="8" fill="#0E3A53"/>
+          <rect x="24" y="240" width="50" height="20" fill="#FFFFFF"/>
+          <rect x="16" y="258" width="66" height="62" fill="#FFFFFF"/>
+          <g fill="#0E3A53"><rect x="24" y="268" width="8" height="8"/><rect x="38" y="268" width="8" height="8"/><rect x="52" y="268" width="8" height="8"/><rect x="66" y="268" width="8" height="8"/><rect x="24" y="286" width="8" height="8"/><rect x="38" y="286" width="8" height="8"/><rect x="52" y="286" width="8" height="8"/><rect x="66" y="286" width="8" height="8"/></g>
+          <rect x="94" y="300" width="32" height="18" fill="#E8644A"/><rect x="128" y="300" width="32" height="18" fill="#3FA796"/><rect x="162" y="300" width="32" height="18" fill="#F5B82E"/><rect x="196" y="300" width="32" height="18" fill="#FFFFFF"/><rect x="230" y="300" width="32" height="18" fill="#1D7A9C"/><rect x="264" y="300" width="32" height="18" fill="#E8644A"/><rect x="94" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="280" width="32" height="18" fill="#E8644A"/><rect x="162" y="280" width="32" height="18" fill="#9CCBD6"/><rect x="196" y="280" width="32" height="18" fill="#F5B82E"/><rect x="230" y="280" width="32" height="18" fill="#3FA796"/><rect x="264" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="260" width="32" height="18" fill="#F5B82E"/><rect x="162" y="260" width="32" height="18" fill="#1D7A9C"/><rect x="196" y="260" width="32" height="18" fill="#E8644A"/><rect x="230" y="260" width="32" height="18" fill="#3FA796"/>
+          <path d="M0 318 H302 L320 304 H368 L338 376 H16 Z" fill="#0E3A53"/>
+          <path d="M9 356 H346 L338 376 H16 Z" fill="#E8644A"/>
+        </g></g></g>
+
+        <!-- waves -->
+        <path class="wave1" d="M-120 366 Q-90.0 360 -60.0 366 T0.0 366 T60.0 366 T120.0 366 T180.0 366 T240.0 366 T300.0 366 T360.0 366 T420.0 366 T480.0 366 T540.0 366 T600.0 366 T660.0 366 T720.0 366 T780.0 366 T840.0 366 T900.0 366 T960.0 366 T1020.0 366 T1080.0 366 T1140.0 366 T1200.0 366 T1260.0 366 T1320.0 366 T1380.0 366 T1440.0 366 T1500.0 366 T1560.0 366 V520 H-120 Z" fill="#1D7A9C"/>
+        <path class="wave2" d="M-130 412 Q-87.5 403 -45.0 412 T40.0 412 T125.0 412 T210.0 412 T295.0 412 T380.0 412 T465.0 412 T550.0 412 T635.0 412 T720.0 412 T805.0 412 T890.0 412 T975.0 412 T1060.0 412 T1145.0 412 T1230.0 412 T1315.0 412 T1400.0 412 T1485.0 412 T1570.0 412 T1655.0 412 V520 H-130 Z" fill="#166785"/>
+        <path d="M-140 466 Q-82.5 454 -25.0 466 T90.0 466 T205.0 466 T320.0 466 T435.0 466 T550.0 466 T665.0 466 T780.0 466 T895.0 466 T1010.0 466 T1125.0 466 T1240.0 466 T1355.0 466 T1470.0 466 T1585.0 466 T1700.0 466 V520 H-140 Z" fill="#0E3A53"/>
+      </svg>

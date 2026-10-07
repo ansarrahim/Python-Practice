@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Umikoe — Japan trade desk</title>
+<meta name="description" content="Umikoe connects overseas importers and distributors with trusted Japanese makers, in English and Japanese.">
+<meta name="theme-color" content="#F5B82E">
+<script>document.documentElement.className+=' js'</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+  :root{
+    --ink:#0E3A53; --sea:#1D7A9C; --sun:#F5B82E; --coral:#E8644A; --mint:#3FA796; --sky:#9CCBD6; --cream:#FFF8EA;
+    --mute:#4F6B79; --line:#0E3A53;
+    --display:'Dela Gothic One','Hiragino Kaku Gothic StdN',Impact,sans-serif;
+    --text:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
+    --u-display:var(--display); --u-ink:var(--ink); --u-line:#CFE0E5; --u-radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--text);color:var(--ink);background:var(--cream);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body[data-lang="ja"]{line-height:1.8}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 28px}
+  h1,h2,.d{font-family:var(--display);font-weight:400;letter-spacing:-.005em;text-wrap:balance}
+  h2{font-size:clamp(32px,4.6vw,62px);line-height:1.06}
+  body[data-lang="ja"] h2{line-height:1.25}
+  .sub{font-size:18.5px;margin-top:16px;max-width:56ch;font-weight:500}
+
+  .demo{background:var(--ink);color:#BFDCE6;font-size:13px;text-align:center;padding:7px 16px}
+
+  header{position:sticky;top:0;z-index:30;background:var(--cream);border-bottom:3px solid var(--ink)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:18px}
+  .brand{font-family:var(--display);font-size:26px;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .brand i{width:30px;height:20px;background:var(--coral);border:2.5px solid var(--ink);border-radius:3px;position:relative;
+    background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 2px,transparent 2px 6px)}
+  .links{display:flex;gap:4px;list-style:none;font-weight:700;font-size:15px}
+  .links a{text-decoration:none;padding:8px 12px;border-radius:999px;display:block}
+  .links a:hover,.links a.active{background:var(--ink);color:var(--cream)}
+  .right{display:flex;gap:10px;align-items:center}
+  .lang{display:flex;border:2.5px solid var(--ink);border-radius:999px;overflow:hidden}
+  .lang button{border:0;background:none;font:inherit;font-weight:700;font-size:13px;padding:6px 11px;white-space:nowrap;cursor:pointer;color:var(--ink)}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--sun)}
+  .burger{display:none;border:2.5px solid var(--ink);background:var(--sun);border-radius:999px;font:inherit;font-weight:900;font-size:14px;padding:8px 16px;cursor:pointer}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:inherit;font-weight:900;font-size:16.5px;padding:15px 26px;border-radius:999px;border:3px solid var(--ink);
+    text-decoration:none;cursor:pointer;background:var(--ink);color:var(--cream);box-shadow:5px 5px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.sun{background:var(--sun);color:var(--ink)}
+  .btn.white{background:#fff;color:var(--ink)}
+  .btn.small{padding:9px 16px;font-size:14px;box-shadow:3px 3px 0 var(--ink)}
+  .btn[disabled]{opacity:.7;cursor:progress}
+
+  /* hero */
+  .hero{background:var(--sun);border-bottom:3px solid var(--ink);overflow:hidden;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:end;padding-top:70px}
+  .stamp{display:inline-block;font-weight:900;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:2.5px solid var(--ink);border-radius:999px;padding:6px 14px;background:var(--cream)}
+  .hero h1{font-size:clamp(42px,6.8vw,100px);line-height:.98;margin-top:22px}
+  body[data-lang="ja"] .hero h1{font-size:clamp(36px,5.4vw,78px);line-height:1.2}
+  .hero .lead{font-size:19px;font-weight:500;margin-top:24px;max-width:52ch}
+  .cta{display:flex;gap:16px;flex-wrap:wrap;margin:32px 0 70px}
+  .stack{position:relative;height:430px;align-self:end}
+  .c{position:absolute;height:64px;border:3px solid var(--ink);border-radius:4px;
+     background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 3px,transparent 3px 16px)}
+  .c::after{content:attr(data-k);position:absolute;right:10px;bottom:6px;font-family:var(--display);font-size:13px;color:rgba(255,255,255,.85)}
+  @media (prefers-reduced-motion:no-preference){
+    .c{animation:drop .8s cubic-bezier(.3,1.4,.5,1) both}
+    @keyframes drop{from{transform:translateY(-520px)}to{transform:none}}
+  }
+  .hook{position:absolute;left:52%;top:-10px;width:3px;height:70px;background:var(--ink)}
+  .hook::after{content:"";position:absolute;left:-9px;bottom:-12px;width:20px;height:14px;border:3px solid var(--ink);border-top:0;border-radius:0 0 12px 12px}
+  @media (prefers-reduced-motion:no-preference){.hook{animation:swing 4s ease-in-out infinite;transform-origin:top}@keyframes swing{50%{transform:rotate(6deg)}}}
+
+  /* marquee */
+  .marquee{background:var(--ink);color:var(--sun);border-bottom:3px solid var(--ink);overflow:hidden;white-space:nowrap;padding:16px 0}
+  .marquee div{display:inline-flex;gap:40px;font-family:var(--display);font-size:24px;padding-right:40px}
+  .marquee span::after{content:"✦";margin-left:40px;color:var(--coral)}
+  @media (prefers-reduced-motion:no-preference){.marquee .track{display:inline-block;animation:mq 38s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}}
+
+  section{padding:100px 0;border-bottom:3px solid var(--ink)}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .pillar{border:3px solid var(--ink);border-radius:22px;padding:30px;background:#fff;box-shadow:8px 8px 0 var(--ink)}
+  .pillar:nth-child(1){background:var(--coral);color:#fff}
+  .pillar:nth-child(2){background:var(--sky)}
+  .pillar:nth-child(3){background:var(--mint);color:#fff}
+  .pillar h3{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.1}
+  .pillar p{margin-top:12px;font-weight:500;font-size:16.5px}
+
+  /* products carousel */
+  .phead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+  .arrows{display:flex;gap:10px}
+  .arrows button{width:54px;height:54px;border-radius:50%;border:3px solid var(--ink);background:#fff;cursor:pointer;font-size:22px;font-weight:900;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+  .arrows button:hover{background:var(--sun)}
+  .arrows button:disabled{opacity:.35;cursor:default;background:#fff}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+  .chip{font:inherit;font-weight:700;font-size:14px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);padding:7px 15px;border-radius:999px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--sun)}
+  .rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,31%);gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 10px 26px 4px;margin:0 -10px 0 -4px;scrollbar-width:thin;scroll-behavior:smooth}
+  .pc{scroll-snap-align:start;border:3px solid var(--ink);border-radius:22px;background:#fff;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;box-shadow:6px 6px 0 var(--ink);transition:transform .2s,box-shadow .2s}
+  .pc:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .pc .art{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--ink);
+    background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 3px,transparent 3px 20px)}
+  .pc .art svg{width:66%;transition:transform .35s}
+  .pc:hover .art svg{transform:rotate(-4deg) scale(1.06)}
+  .pc .b{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+  .pc h3{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.2}
+  .pc p{font-size:15.5px;margin-top:8px;color:var(--mute);flex:1}
+  .pc .f{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:8px}
+  .pc .more{font-weight:900;font-size:14px;white-space:nowrap}
+  .tg{display:inline-block;font-size:12px;font-weight:900;border:2px solid var(--ink);border-radius:999px;padding:2px 10px;margin:2px 2px 0 0;background:var(--cream)}
+  .tg--rules{background:var(--sun)}
+  .empty{margin-top:20px;border:3px dashed var(--ink);border-radius:20px;padding:26px;text-align:center;font-weight:700}
+
+  /* map */
+  .mapsec{background:var(--sea);color:#fff}
+  .map-grid{display:grid;grid-template-columns:1fr 340px;gap:30px;margin-top:40px;align-items:start}
+  .mapbox{background:var(--ink);border:3px solid var(--ink);border-radius:24px;overflow:hidden;box-shadow:8px 8px 0 #0A2C40}
+  .mapbox svg{display:block;width:100%;height:auto}
+  .route{fill:none;stroke:#5E8FA6;stroke-width:2.5;stroke-dasharray:6 8;transition:stroke .3s}
+  .route.on{stroke:var(--sun);stroke-width:4;stroke-dasharray:none}
+  .pin{cursor:pointer}
+  .pin circle.ring{fill:none;stroke:var(--sun);stroke-width:2;opacity:0}
+  .pin.on circle.ring{opacity:1}
+  @media (prefers-reduced-motion:no-preference){.pin.on circle.ring{animation:ring 1.6s ease-out infinite}@keyframes ring{from{r:8;opacity:1}to{r:26;opacity:0}}}
+  .pin text{font-family:var(--text);font-weight:900;font-size:17px;fill:#fff;paint-order:stroke;stroke:var(--ink);stroke-width:5px}
+  .pin:focus{outline:none}
+  .pin:focus-visible circle.dot{stroke:#fff;stroke-width:3}
+  .mside{display:flex;flex-direction:column;gap:12px}
+  .mbtn{all:unset;box-sizing:border-box;cursor:pointer;border:3px solid var(--ink);border-radius:16px;background:#fff;color:var(--ink);padding:14px 18px;font-weight:900;display:flex;justify-content:space-between;align-items:center;box-shadow:4px 4px 0 var(--ink)}
+  .mbtn:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+  .mbtn[aria-pressed="true"]{background:var(--sun)}
+  .mnote{background:var(--cream);color:var(--ink);border:3px solid var(--ink);border-radius:16px;padding:18px;font-weight:500;flex:1;box-shadow:4px 4px 0 var(--ink)}
+  .mnote b{font-family:var(--display);font-weight:400;font-size:22px;display:block;margin-bottom:6px}
+
+  /* steps */
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px;counter-reset:s}
+  .steps li{counter-increment:s;border:3px solid var(--ink);border-radius:22px;padding:26px;min-height:250px;display:flex;flex-direction:column}
+  .steps li::before{content:counter(s);font-family:var(--display);font-size:80px;line-height:.9;margin-bottom:auto}
+  .steps li:nth-child(1){background:var(--sun)} .steps li:nth-child(2){background:var(--sky)}
+  .steps li:nth-child(3){background:var(--mint);color:#fff} .steps li:nth-child(4){background:var(--coral);color:#fff}
+  .steps h3{font-weight:900;font-size:20px;margin-top:24px}
+  .steps p{font-size:15.5px;margin-top:6px;font-weight:500}
+
+  /* deliver */
+  .deliver{background:var(--ink);color:#fff}
+  .dl{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:40px;counter-reset:d}
+  .dl div{border-top:2px solid rgba(255,255,255,.2);padding:22px 0 22px 64px;position:relative;counter-increment:d}
+  .dl div::before{content:counter(d,decimal-leading-zero);position:absolute;left:0;top:20px;font-family:var(--display);font-size:26px;color:var(--sun)}
+  .dl b{font-size:19px;font-weight:900;display:block}
+  .dl span{color:#BFDCE6;display:block;margin-top:4px}
+  .conn{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .conn strong{color:var(--sun);margin-right:6px}
+  .conn span{border:2px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 14px;font-size:14.5px}
+
+  /* faq + about */
+  .fa{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+  details{border:3px solid var(--ink);border-radius:18px;background:#fff;margin-bottom:12px;box-shadow:4px 4px 0 var(--ink)}
+  summary{list-style:none;cursor:pointer;padding:18px 56px 18px 20px;font-weight:900;font-size:17px;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--sun);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{padding:0 20px 18px;font-weight:500}
+  .about{border:3px solid var(--ink);border-radius:24px;background:var(--sky);padding:34px;box-shadow:8px 8px 0 var(--ink)}
+  .about .d{font-size:clamp(60px,8vw,110px);line-height:1;color:var(--ink)}
+  .about h2{font-size:clamp(26px,2.8vw,36px);margin-top:14px}
+  .about p{margin-top:12px;font-weight:500}
+  .about .say{font-weight:900}
+
+  /* contact */
+  .contact{background:var(--coral)}
+  .contact h2,.contact .sub{color:#fff}
+  .cgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:50px;align-items:start}
+  .where{margin-top:26px;background:var(--cream);border:3px solid var(--ink);border-radius:18px;padding:18px 20px;font-weight:500;box-shadow:5px 5px 0 var(--ink)}
+  .formcard{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:30px;box-shadow:10px 10px 0 var(--ink)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{margin-bottom:16px}
+  label{display:block;font-weight:900;font-size:14.5px;margin-bottom:6px}
+  label .opt{font-weight:500;color:var(--mute)}
+  input,select,textarea{width:100%;font:inherit;font-size:16px;padding:12px 14px;border:2.5px solid var(--ink);border-radius:12px;background:var(--cream);color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;background:#fff;box-shadow:4px 4px 0 var(--sun)}
+  textarea{min-height:110px;resize:vertical}
+  .formcard .btn{width:100%}
+  .formnote{font-size:13px;color:var(--mute);margin-top:12px;text-align:center}
+
+  footer{background:var(--ink);color:#BFDCE6;padding:40px 0;font-size:14px}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+  footer .d{color:var(--sun);font-size:28px}
+
+  .u-modal{border:3px solid var(--ink)}
+  .u-modal-art{border-right:3px solid var(--ink)}
+  .u-modal-ask{border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+  .u-modal h3{font-weight:400}
+
+  @media (max-width:980px){
+    .burger{display:block}
+    .right .btn{display:none}
+    .links{position:fixed;inset:73px 0 auto 0;background:var(--sun);flex-direction:column;padding:12px 20px 22px;border-bottom:3px solid var(--ink);
+      opacity:0;pointer-events:none;transform:translateY(-10px);transition:all .25s}
+    .links a{font-size:20px;padding:12px 14px}
+    .menu-open .links{opacity:1;pointer-events:auto;transform:none}
+    .hero .hero-grid{grid-template-columns:minmax(0,1fr);padding-top:44px}
+    .hero-grid>*{min-width:0}
+    .stack{height:310px;width:410px;max-width:none;transform:scale(.72);transform-origin:bottom left;margin:-40px 0 0;justify-self:start}
+    .cta{margin-bottom:10px}
+    .pillars{grid-template-columns:1fr}
+    .rail{grid-auto-columns:minmax(270px,80%)}
+    .map-grid,.fa,.cgrid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .dl{grid-template-columns:1fr}
+    section{padding:70px 0}
+  }
+  @media (max-width:560px){
+    .wrap{padding-left:18px;padding-right:18px}
+    .steps,.row2{grid-template-columns:1fr}
+    .steps li{min-height:0}
+    .steps li::before{font-size:56px}
+    .cta .btn{width:100%}
+    .formcard,.about{padding:22px}
+    .marquee div{font-size:19px}
+    .brand{font-size:22px}
+    .pin text{font-size:22px}
+    .u-modal-art{border-right:0;border-bottom:3px solid var(--ink)}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="demo" data-i18n="demo.banner">Design demo for discussion — not a live website yet.</div>
+
+<header data-header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Umikoe, home"><i aria-hidden="true"></i>Umikoe</a>
+    <nav aria-label="Main" data-nav data-menu>
+      <ul class="links" id="menu">
+        <li><a href="#products" data-i18n="nav.products">Products</a></li>
+        <li><a href="#markets" data-i18n="nav.markets">Markets</a></li>
+        <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+        <li><a href="#deliver" data-i18n="nav.deliver">What we deliver</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="ja" aria-pressed="false" lang="ja">日本語</button>
+      </div>
+      <a class="btn sun small" href="#contact" data-i18n="nav.cta">Send a request</a>
+      <button class="burger" type="button" data-menu-toggle aria-controls="menu" aria-expanded="false" data-i18n="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="stamp" data-i18n="hero.eyebrow">Japan trade desk · Ginza, Tokyo</span>
+        <h1 data-i18n="hero.title">From Japan’s makers, across the sea to your market.</h1>
+        <p class="lead" data-i18n="hero.lead"></p>
+        <div class="cta">
+          <a class="btn" href="#contact" data-i18n="hero.cta1">Send a sourcing request</a>
+          <a class="btn white" href="#products" data-i18n="hero.cta2">See what we source</a>
+        </div>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <div class="hook"></div>
+        <div class="c" style="left:0;bottom:0;width:200px;background-color:#E8644A;animation-delay:.1s" data-k="UMK-01"></div>
+        <div class="c" style="left:206px;bottom:0;width:200px;background-color:#1D7A9C;animation-delay:.25s" data-k="UMK-02"></div>
+        <div class="c" style="left:40px;bottom:67px;width:200px;background-color:#3FA796;animation-delay:.4s" data-k="UMK-03"></div>
+        <div class="c" style="left:246px;bottom:67px;width:150px;background-color:#FFFFFF;animation-delay:.55s"></div>
+        <div class="c" style="left:90px;bottom:134px;width:200px;background-color:#0E3A53;animation-delay:.7s" data-k="UMK-05"></div>
+        <div class="c" style="left:130px;bottom:201px;width:150px;background-color:#9CCBD6;animation-delay:.85s"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+  <section style="background:#fff">
+    <div class="wrap pillars">
+      <div class="pillar reveal"><h3 data-i18n="does.1.t"></h3><p data-i18n="does.1.p"></p></div>
+      <div class="pillar reveal"><h3 data-i18n="does.2.t"></h3><p data-i18n="does.2.p"></p></div>
+      <div class="pillar reveal"><h3 data-i18n="does.3.t"></h3><p data-i18n="does.3.p"></p></div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="wrap">
+      <div class="phead">
+        <div><h2 data-i18n="products.title"></h2><p class="sub" data-i18n="products.sub"></p></div>
+        <div class="arrows"><button type="button" id="prev" aria-label="Previous">←</button><button type="button" id="next" aria-label="Next">→</button></div>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+      <div class="rail" id="rail" tabindex="0" aria-label="Products"></div>
+      <p class="empty" id="empty" hidden data-i18n="search.none"></p>
+    </div>
+  </section>
+
+  <section id="markets" class="mapsec">
+    <div class="wrap">
+      <h2 data-i18n="markets.title"></h2>
+      <p class="sub" data-i18n="markets.sub"></p>
+      <div class="map-grid">
+        <div class="mapbox">
+          <svg viewBox="170 10 650 400" id="map" role="img" aria-label="Routes from Tokyo to the UAE, Pakistan, Canada and Australia">
+            <defs><pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#1D5673"/></pattern></defs>
+            <rect width="1000" height="470" fill="url(#dots)"/>
+                        <g id="routes"></g>
+            <circle id="ship" r="7" fill="#fff" stroke="#E8644A" stroke-width="4" opacity="0"/>
+            <g id="pins"></g>
+            <g transform="translate(471 151)"><circle r="9" fill="#E8644A" stroke="#fff" stroke-width="3"/><text x="0" y="-18" text-anchor="middle" style="font:900 17px var(--text);fill:#F5B82E;paint-order:stroke;stroke:#0E3A53;stroke-width:5px">Tokyo</text></g>
+          </svg>
+        </div>
+        <div class="mside">
+          <div id="mbtns" style="display:grid;gap:10px" role="group" aria-label="Markets"></div>
+          <div class="mnote" aria-live="polite"><b id="mname"></b><span id="mtext"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2 data-i18n="how.title"></h2>
+      <p class="sub" data-i18n="how.sub"></p>
+      <ol class="steps">
+        <li class="reveal"><h3 data-i18n="step.1.t"></h3><p data-i18n="step.1.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.2.t"></h3><p data-i18n="step.2.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.3.t"></h3><p data-i18n="step.3.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.4.t"></h3><p data-i18n="step.4.p"></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="deliver" class="deliver">
+    <div class="wrap">
+      <h2 data-i18n="deliver.title"></h2>
+      <p class="sub" style="color:#BFDCE6" data-i18n="deliver.sub"></p>
+      <div class="dl" id="dl"></div>
+      <div class="conn"><strong data-i18n="conn.title"></strong><span data-i18n="conn.1"></span><span data-i18n="conn.2"></span><span data-i18n="conn.3"></span></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap fa">
+      <div>
+        <h2 style="margin-bottom:26px" data-i18n="faq.title"></h2>
+        <details><summary data-i18n="faq.1.q"></summary><p data-i18n="faq.1.a"></p></details>
+        <details><summary data-i18n="faq.2.q"></summary><p data-i18n="faq.2.a"></p></details>
+        <details><summary data-i18n="faq.3.q"></summary><p data-i18n="faq.3.a"></p></details>
+        <details><summary data-i18n="faq.4.q"></summary><p data-i18n="faq.4.a"></p></details>
+      </div>
+      <div class="about reveal" id="about">
+        <div class="d" lang="ja" aria-hidden="true">海越え</div>
+        <h2 data-i18n="story.title"></h2>
+        <p class="say" data-i18n="story.say"></p>
+        <p data-i18n="story.p1"></p>
+        <p data-i18n="story.p2"></p>
+        <p data-i18n="story.p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap cgrid">
+      <div>
+        <h2 data-i18n="contact.title"></h2>
+        <p class="sub" data-i18n="contact.sub"></p>
+        <div class="where">
+          <p><strong data-i18n="contact.org"></strong></p>
+          <p data-i18n="contact.addr"></p>
+          <p><a href="mailto:info@sd-c.net">info@sd-c.net</a></p>
+        </div>
+      </div>
+      <div class="formcard">
+        <form data-umikoe-form novalidate>
+          <div class="row2">
+            <div class="field"><label for="n" data-i18n="form.name"></label><input id="n" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="c"><span data-i18n="form.company"></span> <span class="opt">(<span data-i18n="form.optional"></span>)</span></label><input id="c" name="company" autocomplete="organization"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="co" data-i18n="form.country"></label><input id="co" name="country" list="u-countries" autocomplete="country-name" required></div>
+            <div class="field"><label for="e" data-i18n="form.email"></label><input id="e" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="p" data-i18n="form.product"></label><select id="p" name="product"></select></div>
+          <div class="field"><label for="m" data-i18n="form.message"></label><textarea id="m" name="message" data-i18n-ph="form.message.ph" required></textarea></div>
+          <div class="hp" aria-hidden="true"><input name="_hp" tabindex="-1" autocomplete="off"></div>
+          <button class="btn sun" type="submit" data-i18n="form.submit">Send request</button>
+          <p class="formnote" data-i18n="form.note"></p>
+        </form>
+        <div data-form-status role="status" tabindex="-1" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><span class="d">Umikoe</span><br><span data-i18n="footer.tag"></span></div>
+    <div><span data-i18n="footer.by"></span><br><a href="mailto:info@sd-c.net">info@sd-c.net</a> · © <span data-year></span></div>
+  </div>
+</footer>
+
+<script src="assets/umikoe.js"></script>
+<script>
+(function () {
+  var U = window.Umikoe, $ = function (s) { return document.querySelector(s); };
+
+  /* marquee: product names, doubled for a seamless loop */
+  U.onLang(function () {
+    var names = U.products.map(function (p) { return '<span>' + U.esc(U.t('p.' + p.id + '.n')) + '</span>'; }).join('');
+    $('#mq').innerHTML = '<div>' + names + '</div><div>' + names + '</div>';
+  });
+
+  /* products rail */
+  var rail = $('#rail');
+  function arrows() {
+    $('#prev').disabled = rail.scrollLeft < 5;
+    $('#next').disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 5;
+  }
+  U.catalog({
+    grid: rail, filters: '#chips', empty: '#empty',
+    card: function (p) {
+      return '<a class="pc" href="#products" data-open-product="' + p.id + '">' +
+        '<div class="art" style="background-color:' + p.color + '">' + p.icon + '</div>' +
+        '<div class="b"><h3>' + U.esc(U.t('p.' + p.id + '.n')) + '</h3><p>' + U.esc(U.t('p.' + p.id + '.d')) + '</p>' +
+        '<div class="f"><span>' + U.tagsHTML(p, 'tg') + '</span><span class="more">' + U.esc(U.t('product.more')) + ' →</span></div></div></a>';
+    },
+    after: function () { rail.scrollLeft = 0; setTimeout(arrows, 50); }
+  });
+  rail.addEventListener('scroll', arrows, { passive: true });
+  window.addEventListener('resize', arrows);
+  $('#prev').addEventListener('click', function () { rail.scrollBy({ left: -rail.clientWidth * .8 }); });
+  $('#next').addEventListener('click', function () { rail.scrollBy({ left: rail.clientWidth * .8 }); });
+
+  /* route map */
+  var CITY = { uae: [237, 186, 354, 40], pk: [292, 192, 380, 70], ca: [741, 113, 606, 0], au: [503, 344, 560, 250] };
+  var TOKYO = [471, 151], current = 'uae', raf;
+  var NS = 'http://www.w3.org/2000/svg';
+  var routes = $('#routes'), pins = $('#pins');
+  U.markets.forEach(function (m) {
+    var c = CITY[m];
+    var path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M' + TOKYO[0] + ' ' + TOKYO[1] + ' Q' + c[2] + ' ' + c[3] + ' ' + c[0] + ' ' + c[1]);
+    path.setAttribute('class', 'route'); path.id = 'r-' + m;
+    routes.appendChild(path);
+    var g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'pin'); g.setAttribute('data-m', m); g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button');
+    g.setAttribute('transform', 'translate(' + c[0] + ' ' + c[1] + ')');
+    // label placement per pin so UAE and Pakistan don't collide
+    var lab = { uae: 'text-anchor="end" x="-16" y="6"', pk: 'text-anchor="middle" y="34"', ca: 'text-anchor="middle" y="-18"', au: 'text-anchor="middle" y="34"' }[m];
+    g.innerHTML = '<circle class="ring" r="8"/><circle class="dot" r="9" fill="#F5B82E" stroke="#0E3A53" stroke-width="3"/><text ' + lab + '></text>';
+    pins.appendChild(g);
+  });
+  function sail() {
+    cancelAnimationFrame(raf);
+    var path = document.getElementById('r-' + current), ship = $('#ship'), len = path.getTotalLength();
+    if (U.reduceMotion) { var e = path.getPointAtLength(len); ship.setAttribute('cx', e.x); ship.setAttribute('cy', e.y); ship.setAttribute('opacity', 1); return; }
+    var t0 = null;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min((t - t0) / 1800, 1), ease = 1 - Math.pow(1 - k, 3);
+      var pt = path.getPointAtLength(len * ease);
+      ship.setAttribute('cx', pt.x); ship.setAttribute('cy', pt.y); ship.setAttribute('opacity', 1);
+      if (k < 1) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function drawMap(animate) {
+    U.markets.forEach(function (m) {
+      document.getElementById('r-' + m).classList.toggle('on', m === current);
+      var pin = pins.querySelector('[data-m="' + m + '"]');
+      pin.classList.toggle('on', m === current);
+      pin.querySelector('text').textContent = U.t('market.' + m);
+      pin.setAttribute('aria-label', U.t('market.' + m));
+      pin.setAttribute('aria-pressed', String(m === current));
+    });
+    $('#mbtns').innerHTML = U.markets.map(function (m) {
+      return '<button type="button" class="mbtn" data-m="' + m + '" aria-pressed="' + (m === current) + '">' + U.esc(U.t('market.' + m)) + '<span aria-hidden="true">→</span></button>';
+    }).join('');
+    $('#mname').textContent = U.t('markets.from') + ' → ' + U.t('market.' + current);
+    $('#mtext').textContent = U.t('market.' + current + '.note');
+    if (animate) sail();
+  }
+  function pick(m, refocus) {
+    current = m; drawMap(true);
+    if (refocus) { var b = $('#mbtns [data-m="' + m + '"]'); if (b) b.focus(); }
+  }
+  $('#mbtns').addEventListener('click', function (e) { var b = e.target.closest('[data-m]'); if (b) pick(b.getAttribute('data-m'), true); });
+  pins.addEventListener('click', function (e) { var g = e.target.closest('[data-m]'); if (g) pick(g.getAttribute('data-m')); });
+  pins.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var g = e.target.closest('[data-m]'); if (g) { e.preventDefault(); pick(g.getAttribute('data-m')); g.focus(); }
+  });
+  U.onLang(function () { drawMap(false); });
+  // Sail the first route when the map scrolls into view.
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { sail(); io.disconnect(); } }, { threshold: .4 });
+    io.observe($('#map'));
+  } else { sail(); }
+
+  U.onLang(function () {
+    var h = '';
+    for (var i = 1; i <= 6; i++) h += '<div><b>' + U.esc(U.t('dl.' + i + '.t')) + '</b><span>' + U.esc(U.t('dl.' + i + '.s')) + '</span></div>';
+    $('#dl').innerHTML = h;
+  });
+})();
+</script>
+</body>
+</html>

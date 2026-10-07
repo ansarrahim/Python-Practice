@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Umikoe — Japan trade desk</title>
+<meta name="description" content="Umikoe connects overseas importers and distributors with trusted Japanese makers, in English and Japanese.">
+<meta name="theme-color" content="#0E3A53">
+<script>document.documentElement.className+=' js'</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* Shared structure for all demos. Each demo sets the --u-* variables. */
+:root{
+  --u-surface:#fff; --u-ink:#0E3A53; --u-mute:#4F6B79; --u-line:#CFE0E5;
+  --u-accent:#F5B82E; --u-accent-ink:#0E3A53; --u-error:#B42318;
+  --u-radius:14px; --u-display:Georgia,serif;
+}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--u-ink);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
+
+/* Scroll reveal (only when JS is on) */
+html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+html.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}}
+
+/* Form errors + status */
+.u-err{color:var(--u-error);font-size:13.5px;margin-top:6px;min-height:0}
+.u-err:empty{display:none}
+.has-err input,.has-err textarea,.has-err select{border-color:var(--u-error)!important}
+[data-form-status]{border-radius:calc(var(--u-radius) - 4px);padding:16px 18px;margin-top:14px;font-size:15px;outline:none}
+[data-form-status].is-ok{background:#E7F6EE;color:#14532D;border:1px solid #A7DCC0}
+[data-form-status].is-fail{background:#FDECEA;color:#7A1D12;border:1px solid #F3B8B0}
+[data-form-status] strong{display:block;font-size:17px;margin-bottom:2px}
+.u-again{margin-top:10px;background:none;border:0;padding:0;font:inherit;font-weight:700;text-decoration:underline;color:inherit;cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Product dialog */
+.u-modal{margin:auto;border:0;padding:0;border-radius:var(--u-radius);max-width:760px;width:calc(100% - 32px);background:var(--u-surface);color:var(--u-ink);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden}
+.u-modal[open]{display:grid;grid-template-columns:1fr 1.15fr}
+.u-modal::backdrop{background:rgba(6,20,30,.55);backdrop-filter:blur(3px)}
+@media (prefers-reduced-motion:no-preference){.u-modal[open]{animation:u-pop .28s cubic-bezier(.2,.8,.2,1)}}
+@keyframes u-pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.u-modal-art{display:flex;align-items:center;justify-content:center;min-height:240px;position:relative;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 3px,rgba(255,255,255,0) 3px 20px)}
+.u-modal-art svg{width:72%;height:auto}
+.u-modal-body{padding:30px 30px 28px;position:relative}
+.u-modal-x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--u-line);background:var(--u-surface);color:var(--u-ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.u-modal-x:hover{background:var(--u-line)}
+.u-modal h3{font-family:var(--u-display);font-size:27px;line-height:1.2;margin:10px 44px 10px 0}
+.u-modal-desc{color:var(--u-mute);font-size:16px}
+.u-modal dl{margin:18px 0 0;display:grid;gap:4px}
+.u-modal dt{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--u-mute);margin-top:10px}
+.u-modal dd{margin:0;font-size:15.5px}
+.u-modal-actions{margin-top:24px}
+.u-modal-ask{display:inline-block;background:var(--u-accent);color:var(--u-accent-ink);font-weight:700;padding:13px 22px;border-radius:999px;text-decoration:none}
+.u-modal-ask:hover{filter:brightness(1.06)}
+.u-tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(29,122,156,.12);color:#145E79;margin-right:4px}
+.u-tag--rules{background:#FFF1CF;color:#7A5200}
+@media (max-width:640px){
+  .u-modal[open]{grid-template-columns:1fr;max-height:calc(100dvh - 32px);overflow:auto}
+  .u-modal-art{min-height:170px}
+  .u-modal-body{padding:24px 22px}
+  .u-modal-ask{display:block;text-align:center}
+}
+.lang button{white-space:nowrap}
+</style>
+<style>
+  :root{
+    --ink:#0E3A53; --sea:#1D7A9C; --shallow:#E4F1F4; --sun:#F5B82E; --coral:#E8644A;
+    --mute:#4F6B79; --line:#CFE0E5; --white:#FFFFFF;
+    --display:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',Georgia,serif;
+    --text:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
+    --u-display:var(--display); --u-ink:var(--ink); --u-mute:var(--mute); --u-line:var(--line); --u-accent:var(--sun);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--text);color:var(--ink);background:var(--white);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body[data-lang="ja"]{line-height:1.85;font-size:16.5px}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  h1,h2{font-family:var(--display);font-weight:900;letter-spacing:-.01em;text-wrap:balance}
+  h2{font-size:clamp(28px,3.4vw,44px);line-height:1.18}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sea)}
+  .eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+  .sub{margin-top:14px;color:var(--mute);max-width:58ch;font-size:18px}
+
+  .demo{background:#082638;color:#BFDCE6;font-size:13px;text-align:center;padding:7px 16px}
+
+  /* header */
+  .top{background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(12px);-webkit-backdrop-filter:saturate(1.6) blur(12px);position:sticky;top:0;z-index:20;border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+  .top.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(14,58,83,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand b{font-family:var(--display);font-weight:900;font-size:25px;line-height:1;letter-spacing:.01em}
+  .brand small{display:block;font-size:11.5px;color:var(--mute);font-weight:500;margin-top:3px}
+  .links{display:flex;gap:26px;list-style:none;font-size:15px;font-weight:500}
+  .links a{text-decoration:none;color:var(--mute);position:relative;padding:6px 0}
+  .links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--sun);transform:scaleX(0);transition:transform .25s}
+  .links a:hover,.links a.active{color:var(--ink)}
+  .links a.active::after,.links a:hover::after{transform:scaleX(1)}
+  .right{display:flex;align-items:center;gap:12px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;flex-shrink:0;background:var(--white)}
+  .lang button{border:0;background:none;padding:7px 12px;cursor:pointer;font:inherit;color:var(--mute)}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--white);cursor:pointer;align-items:center;justify-content:center}
+  .burger span,.burger span::before,.burger span::after{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;position:relative;transition:transform .25s,background .25s}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0}
+  .burger span::before{top:-6px}.burger span::after{top:6px}
+  .menu-open .burger span{background:transparent}
+  .menu-open .burger span::before{transform:translateY(6px) rotate(45deg)}
+  .menu-open .burger span::after{transform:translateY(-6px) rotate(-45deg)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 26px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;font-family:inherit;border:2px solid var(--ink);cursor:pointer;line-height:1.2;transition:transform .15s,background .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.go{background:var(--sun);border-color:var(--sun);color:var(--ink);box-shadow:0 8px 20px rgba(245,184,46,.35)}
+  .btn.go:hover{background:#FFC84A;border-color:#FFC84A}
+  .btn.plain{background:transparent;color:var(--ink)}
+  .btn.plain:hover{background:var(--white)}
+  .btn.small{padding:9px 18px;font-size:14px;box-shadow:none}
+  .btn[disabled]{opacity:.7;cursor:progress;transform:none}
+
+  /* hero */
+  .hero{background:linear-gradient(#FFFFFF 0%,#EAF5F7 55%,#D5EAEF 100%);text-align:center;padding-top:56px}
+  .hero h1{font-size:clamp(34px,5vw,64px);line-height:1.12;max-width:22ch;margin:16px auto 0}
+  body[data-lang="ja"] .hero h1{font-size:clamp(30px,4.4vw,56px);line-height:1.3}
+  .hero .lead{margin:22px auto 0;font-size:19px;color:var(--mute);max-width:56ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;justify-content:center}
+  .scene-box{margin-top:-3vw;line-height:0;overflow:hidden}
+  .scene{display:block;width:100%;height:auto}
+  @media (prefers-reduced-motion:no-preference){
+    .ship{animation:sail 7s cubic-bezier(.2,.7,.2,1) both}
+    .bob{animation:bob 5s ease-in-out 7s infinite}
+    .wave1{animation:drift 9s linear infinite}
+    .wave2{animation:drift2 13s linear infinite}
+    @keyframes sail{from{transform:translateX(-110px)}to{transform:translateX(0)}}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+    @keyframes drift{from{transform:translateX(0)}to{transform:translateX(120px)}}
+    @keyframes drift2{from{transform:translateX(0)}to{transform:translateX(-170px)}}
+  }
+
+  .does{background:var(--ink);color:var(--white);padding:36px 0 72px}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .three h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px;color:var(--sun)}
+  .three p{color:#C5DEE7;font-size:16.5px;max-width:34ch}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid rgba(255,255,255,.14)}
+  .facts div{padding:24px 20px 0 0}
+  .facts b{display:block;font-family:var(--display);font-size:46px;line-height:1;color:var(--white)}
+  .facts span{display:block;margin-top:8px;font-size:14.5px;color:#9FC3D0;max-width:22ch}
+
+  section{padding:96px 0}
+
+  /* catalogue */
+  .cat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+  .tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:34px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1px solid var(--line);background:var(--white);color:var(--mute);font:inherit;font-size:14px;font-weight:500;padding:8px 15px;border-radius:999px;cursor:pointer;transition:all .2s}
+  .chip:hover{border-color:var(--sea);color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .search{position:relative;margin-left:auto;min-width:240px}
+  .search input{width:100%;font:inherit;font-size:15px;padding:10px 14px 10px 40px;border:1px solid var(--line);border-radius:999px;color:var(--ink);background:var(--white)}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 26px;margin-top:34px}
+  .tile{display:block;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:none}
+  .box{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+       background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 3px,rgba(255,255,255,0) 3px 20px);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+  .box::before,.box::after{content:"";position:absolute;left:0;right:0;height:9px;background:rgba(6,30,45,.2)}
+  .box::before{top:0}.box::after{bottom:0}
+  .box svg{width:62%;height:auto;position:relative;transition:transform .35s}
+  .tile:hover .box{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 18px 30px rgba(14,58,83,.18)}
+  .tile:hover .box svg{transform:scale(1.05)}
+  .tile h3{font-size:20px;font-weight:700;margin-top:16px;line-height:1.3}
+  .tile p{font-size:15.5px;color:var(--mute);margin-top:6px}
+  .tile .more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:14px;font-weight:700;color:var(--sea)}
+  .tile .more::after{content:"→";transition:transform .2s}
+  .tile:hover .more::after{transform:translateX(4px)}
+  .tag{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 11px;border-radius:999px;margin-top:10px;background:var(--shallow);color:#145E79}
+  .tag--rules{background:#FFF1CF;color:#7A5200}
+  .empty{margin-top:30px;padding:26px;border:2px dashed var(--line);border-radius:12px;color:var(--mute);text-align:center}
+
+  .deliver{background:var(--shallow)}
+  .deliver-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
+  .conn{margin-top:30px;padding-top:22px;border-top:2px solid var(--ink)}
+  .conn h3{font-size:18px;font-weight:700;margin-bottom:12px}
+  .conn ul{list-style:none}
+  .conn li{position:relative;padding-left:24px;margin-bottom:9px;color:#2B5265;font-size:16.5px}
+  .conn li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--sea)}
+  .dlist{list-style:none;background:var(--white);border-radius:14px;padding:6px 30px;box-shadow:0 20px 40px rgba(14,58,83,.07)}
+  .dlist li{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:19px 0;border-bottom:1px solid var(--line);align-items:start}
+  .dlist li:last-child{border-bottom:0}
+  .dlist b{display:block;font-size:18px;line-height:1.35}
+  .dlist span{display:block;font-size:15.5px;color:var(--mute);margin-top:2px}
+
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:64px;counter-reset:s;position:relative}
+  .steps::before{content:"";position:absolute;top:0;left:0;right:0;border-top:3px dashed var(--line)}
+  .steps li{counter-increment:s;position:relative;padding-top:38px}
+  .steps li::before{content:counter(s);position:absolute;top:-21px;left:0;width:44px;height:44px;border-radius:50%;background:var(--sun);color:var(--ink);
+       font-family:var(--display);font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px var(--white)}
+  .steps h3{font-size:19px;font-weight:700;margin-bottom:6px}
+  .steps p{font-size:15.5px;color:var(--mute)}
+
+  /* markets */
+  .markets{background:var(--ink);color:var(--white)}
+  .markets .sub{color:#C5DEE7}
+  .mk{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+  .mk button{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:22px;transition:all .2s;display:block}
+  .mk button:hover{border-color:var(--sun)}
+  .mk button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+  .mk button[aria-pressed="true"]{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+  .mk b{font-family:var(--display);font-size:22px;display:block}
+  .mk small{display:block;font-size:13px;opacity:.75;margin-top:2px}
+  .mk-note{margin-top:22px;min-height:56px;font-size:17px;color:#E1EEF2;max-width:70ch;border-left:3px solid var(--sun);padding:4px 0 4px 18px}
+
+  /* faq */
+  .faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+  details{border-bottom:1px solid var(--line)}
+  details:first-child{border-top:1px solid var(--line)}
+  summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;font-weight:700;font-size:18px;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;border-right:2.5px solid var(--sea);border-bottom:2.5px solid var(--sea);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+  details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+  details p{padding:0 0 22px;color:var(--mute);max-width:60ch}
+
+  .story{background:var(--shallow)}
+  .story-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
+  .say{font-size:15px;color:var(--mute);margin-top:12px}
+  .story p.body{font-size:18px;color:#2B5265}
+  .story p.body+p.body{margin-top:16px}
+  .kanji{font-family:var(--display);font-size:clamp(70px,10vw,130px);line-height:1;color:var(--sea);opacity:.18;margin-top:24px;letter-spacing:.06em}
+
+  .contact{background:var(--ink);color:var(--white)}
+  .contact .sub{color:#C5DEE7}
+  .formgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:start}
+  .where{margin-top:28px;font-size:16px;color:#C5DEE7}
+  .where p{margin-bottom:5px}
+  .where strong{color:var(--white)}
+  .formcard{background:var(--white);color:var(--ink);border-radius:16px;padding:30px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  label .opt{font-weight:400;color:var(--mute)}
+  input,select,textarea{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1px solid #A9C3CC;border-radius:8px;color:var(--ink);background:var(--white);transition:border-color .2s,box-shadow .2s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sea);box-shadow:0 0 0 4px rgba(29,122,156,.15)}
+  textarea{min-height:110px;resize:vertical}
+  .field{margin-bottom:16px}
+  .formcard .btn{width:100%;margin-top:4px}
+  .formnote{font-size:13px;color:var(--mute);margin-top:10px;text-align:center}
+
+  footer{background:#0A2C40;color:#A9C9D4;padding:40px 0;font-size:14px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer strong{color:var(--white)}
+  footer a{color:#DCEBF0}
+
+  .float-cta{position:fixed;right:18px;bottom:18px;z-index:15;display:none}
+  .to-top{position:fixed;right:18px;bottom:18px;z-index:14;width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:center;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+  .to-top.show{opacity:1;pointer-events:auto}
+
+  @media (max-width:960px){
+    .burger{display:flex}
+    .right .btn{display:none}
+    .links{position:fixed;inset:72px 0 auto 0;flex-direction:column;gap:0;background:var(--white);padding:8px 28px 24px;border-bottom:1px solid var(--line);
+      box-shadow:0 20px 30px rgba(14,58,83,.12);transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s}
+    .links a{display:block;padding:14px 0;font-size:18px;border-bottom:1px solid var(--line)}
+    .links a::after{display:none}
+    .menu-open .links{transform:none;opacity:1;pointer-events:auto}
+    .hero{padding-top:44px}
+    .scene-box{margin-top:0}
+    .scene{width:160%;margin-left:-26%}
+    .three{grid-template-columns:1fr;gap:26px}
+    .three p{max-width:none}
+    .facts{grid-template-columns:1fr 1fr}
+    .tiles{grid-template-columns:1fr 1fr}
+    .search{margin-left:0;flex:1 1 100%}
+    .story-grid,.formgrid,.deliver-grid,.faq-grid{grid-template-columns:1fr;gap:30px}
+    .steps{grid-template-columns:1fr 1fr;row-gap:60px}
+    .steps::before{display:none}
+    .steps li::before{box-shadow:none}
+    .mk{grid-template-columns:1fr 1fr}
+    section{padding:64px 0}
+    .does{padding:28px 0 56px}
+    .float-cta{display:inline-flex}
+    .to-top{bottom:84px}
+  }
+  @media (max-width:560px){
+    .wrap{padding-left:18px;padding-right:18px}
+    .tiles{grid-template-columns:1fr;gap:32px}
+    .steps{grid-template-columns:1fr;row-gap:52px}
+    .row2{grid-template-columns:1fr}
+    .hero .lead{font-size:17.5px}
+    .cta .btn{width:100%}
+    .formcard{padding:22px}
+    .dlist{padding:4px 20px}
+    .brand small{display:none}
+    .lang button{padding:7px 10px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="demo" data-i18n="demo.banner">Design demo for discussion — not a live website yet.</div>
+
+<header class="top" data-header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Umikoe, home">
+      <svg width="38" height="30" viewBox="0 0 38 30" aria-hidden="true">
+        <circle cx="27" cy="7" r="5" fill="#F5B82E"/>
+        <path d="M2 17 Q7.5 9.5 13 17 T24 17 T35 17" fill="none" stroke="#0E3A53" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M2 25.5 Q7.5 18 13 25.5 T24 25.5 T35 25.5" fill="none" stroke="#1D7A9C" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+      <span><b>Umikoe</b><small data-i18n="brand.sub">Japan trade desk</small></span>
+    </a>
+    <nav aria-label="Main" data-nav data-menu>
+      <ul class="links" id="menu">
+        <li><a href="#products" data-i18n="nav.products">Products</a></li>
+        <li><a href="#deliver" data-i18n="nav.deliver">What we deliver</a></li>
+        <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+        <li><a href="#markets" data-i18n="nav.markets">Markets</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="ja" aria-pressed="false" lang="ja">日本語</button>
+      </div>
+      <a class="btn go small" href="#contact" data-i18n="nav.cta">Send a request</a>
+      <button class="burger" type="button" data-menu-toggle aria-controls="menu" aria-expanded="false" data-i18n-aria="menu" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="hero.eyebrow">Japan trade desk · Ginza, Tokyo</span>
+      <h1 data-i18n="hero.title">From Japan’s makers, across the sea to your market.</h1>
+      <p class="lead" data-i18n="hero.lead">Umikoe connects overseas importers and distributors with trusted Japanese makers, and handles the conversation in English and Japanese from first request to first order.</p>
+      <div class="cta">
+        <a class="btn go" href="#contact" data-i18n="hero.cta1">Send a sourcing request</a>
+        <a class="btn plain" href="#products" data-i18n="hero.cta2">See what we source</a>
+      </div>
+    </div>
+    <div class="scene-box">
+<svg class="scene" viewBox="0 0 1440 520" role="img" aria-label="A cargo ship leaving a Japanese port with Mount Fuji behind it, sailing toward a city across the sea">
+        <!-- sky -->
+        <circle cx="1058" cy="230" r="64" fill="#F8CE62"/>
+        <g fill="#FFFFFF">
+          <rect x="560" y="150" width="130" height="26" rx="13"/><rect x="600" y="134" width="70" height="26" rx="13"/>
+          <rect x="1180" y="118" width="110" height="22" rx="11"/><rect x="1210" y="104" width="56" height="22" rx="11"/>
+        </g>
+        <path d="M760 196 q9 -9 18 0 q9 -9 18 0 M812 172 q7 -7 14 0 q7 -7 14 0" fill="none" stroke="#0E3A53" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- Japan side -->
+        <path d="M20 348 L250 150 Q262 142 274 150 L522 348 Z" fill="#B9D6DE"/>
+        <path d="M250 150 Q262 142 274 150 L312 180 L294 172 L280 188 L264 174 L248 188 L232 172 L215 180 Z" fill="#FFFFFF"/>
+
+        <!-- far sea -->
+        <rect x="0" y="340" width="1440" height="180" fill="#3A9DBD"/>
+
+        <!-- city side -->
+        <g>
+          <rect x="1158" y="250" width="42" height="80" fill="#B9D6DE"/>
+          <rect x="1204" y="212" width="34" height="118" fill="#9CC3CE"/>
+          <rect x="1242" y="168" width="30" height="162" fill="#B9D6DE"/><rect x="1255" y="124" width="4" height="46" fill="#B9D6DE"/>
+          <rect x="1276" y="232" width="46" height="98" fill="#9CC3CE"/>
+          <rect x="1326" y="190" width="38" height="140" fill="#B9D6DE"/>
+          <rect x="1368" y="246" width="72" height="84" fill="#9CC3CE"/>
+          <g fill="#FFFFFF" opacity=".75">
+            <rect x="1211" y="224" width="6" height="8"/><rect x="1224" y="224" width="6" height="8"/><rect x="1211" y="244" width="6" height="8"/><rect x="1224" y="244" width="6" height="8"/><rect x="1211" y="264" width="6" height="8"/><rect x="1224" y="264" width="6" height="8"/>
+            <rect x="1334" y="204" width="6" height="8"/><rect x="1349" y="204" width="6" height="8"/><rect x="1334" y="226" width="6" height="8"/><rect x="1349" y="226" width="6" height="8"/><rect x="1334" y="248" width="6" height="8"/><rect x="1349" y="248" width="6" height="8"/>
+            <rect x="1286" y="246" width="6" height="8"/><rect x="1304" y="246" width="6" height="8"/><rect x="1286" y="268" width="6" height="8"/><rect x="1304" y="268" width="6" height="8"/>
+          </g>
+          <rect x="1130" y="324" width="310" height="22" fill="#E3ECEF"/>
+          <rect x="1130" y="346" width="310" height="174" fill="#A9BEC6"/>
+        </g>
+
+        <!-- Japan quay -->
+        <g>
+          <rect x="0" y="324" width="392" height="22" fill="#E3ECEF"/>
+          <rect x="0" y="346" width="392" height="174" fill="#A9BEC6"/>
+          <!-- warehouse -->
+          <rect x="34" y="264" width="118" height="60" fill="#FFFFFF"/>
+          <path d="M24 266 L93 238 L162 266 Z" fill="#0E3A53"/>
+          <rect x="78" y="290" width="30" height="34" fill="#9CCBD6"/>
+          <!-- stacked containers -->
+          <g>
+            <rect x="176" y="306" width="34" height="18" fill="#E8644A"/><rect x="212" y="306" width="34" height="18" fill="#1D7A9C"/><rect x="248" y="306" width="34" height="18" fill="#F5B82E"/>
+            <rect x="194" y="286" width="34" height="18" fill="#FFFFFF"/><rect x="230" y="286" width="34" height="18" fill="#3FA796"/>
+            <rect x="212" y="266" width="34" height="18" fill="#E8644A"/>
+          </g>
+          <!-- crane -->
+          <g fill="none" stroke="#E8644A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M306 324 L314 204 M370 324 L362 204 M309 284 L367 244 M311 244 L365 284"/>
+            <path d="M284 204 H470"/>
+            <path d="M314 204 L338 160 L362 204 M338 160 L466 204 M338 160 L288 204" stroke-width="3"/>
+          </g>
+          <rect x="420" y="198" width="26" height="12" fill="#0E3A53"/>
+          <path d="M427 210 V246 M439 210 V246" stroke="#0E3A53" stroke-width="2"/>
+          <rect x="416" y="246" width="34" height="18" fill="#F5B82E"/>
+        </g>
+
+        <!-- ship -->
+        <g class="ship"><g class="bob"><g transform="translate(630 0)">
+          <path d="M-58 356 h40 M-108 356 h28" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+          <rect x="34" y="214" width="20" height="28" fill="#F5B82E"/><rect x="34" y="214" width="20" height="8" fill="#0E3A53"/>
+          <rect x="24" y="240" width="50" height="20" fill="#FFFFFF"/>
+          <rect x="16" y="258" width="66" height="62" fill="#FFFFFF"/>
+          <g fill="#0E3A53"><rect x="24" y="268" width="8" height="8"/><rect x="38" y="268" width="8" height="8"/><rect x="52" y="268" width="8" height="8"/><rect x="66" y="268" width="8" height="8"/><rect x="24" y="286" width="8" height="8"/><rect x="38" y="286" width="8" height="8"/><rect x="52" y="286" width="8" height="8"/><rect x="66" y="286" width="8" height="8"/></g>
+          <rect x="94" y="300" width="32" height="18" fill="#E8644A"/><rect x="128" y="300" width="32" height="18" fill="#3FA796"/><rect x="162" y="300" width="32" height="18" fill="#F5B82E"/><rect x="196" y="300" width="32" height="18" fill="#FFFFFF"/><rect x="230" y="300" width="32" height="18" fill="#1D7A9C"/><rect x="264" y="300" width="32" height="18" fill="#E8644A"/><rect x="94" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="280" width="32" height="18" fill="#E8644A"/><rect x="162" y="280" width="32" height="18" fill="#9CCBD6"/><rect x="196" y="280" width="32" height="18" fill="#F5B82E"/><rect x="230" y="280" width="32" height="18" fill="#3FA796"/><rect x="264" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="260" width="32" height="18" fill="#F5B82E"/><rect x="162" y="260" width="32" height="18" fill="#1D7A9C"/><rect x="196" y="260" width="32" height="18" fill="#E8644A"/><rect x="230" y="260" width="32" height="18" fill="#3FA796"/>
+          <path d="M0 318 H302 L320 304 H368 L338 376 H16 Z" fill="#0E3A53"/>
+          <path d="M9 356 H346 L338 376 H16 Z" fill="#E8644A"/>
+        </g></g></g>
+
+        <!-- waves -->
+        <path class="wave1" d="M-120 366 Q-90.0 360 -60.0 366 T0.0 366 T60.0 366 T120.0 366 T180.0 366 T240.0 366 T300.0 366 T360.0 366 T420.0 366 T480.0 366 T540.0 366 T600.0 366 T660.0 366 T720.0 366 T780.0 366 T840.0 366 T900.0 366 T960.0 366 T1020.0 366 T1080.0 366 T1140.0 366 T1200.0 366 T1260.0 366 T1320.0 366 T1380.0 366 T1440.0 366 T1500.0 366 T1560.0 366 V520 H-120 Z" fill="#1D7A9C"/>
+        <path class="wave2" d="M-130 412 Q-87.5 403 -45.0 412 T40.0 412 T125.0 412 T210.0 412 T295.0 412 T380.0 412 T465.0 412 T550.0 412 T635.0 412 T720.0 412 T805.0 412 T890.0 412 T975.0 412 T1060.0 412 T1145.0 412 T1230.0 412 T1315.0 412 T1400.0 412 T1485.0 412 T1570.0 412 T1655.0 412 V520 H-130 Z" fill="#166785"/>
+        <path d="M-140 466 Q-82.5 454 -25.0 466 T90.0 466 T205.0 466 T320.0 466 T435.0 466 T550.0 466 T665.0 466 T780.0 466 T895.0 466 T1010.0 466 T1125.0 466 T1240.0 466 T1355.0 466 T1470.0 466 T1585.0 466 T1700.0 466 V520 H-140 Z" fill="#0E3A53"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="does">
+    <div class="wrap">
+      <div class="three">
+        <div class="reveal"><h3 data-i18n="does.1.t">We source</h3><p data-i18n="does.1.p"></p></div>
+        <div class="reveal"><h3 data-i18n="does.2.t">We connect</h3><p data-i18n="does.2.p"></p></div>
+        <div class="reveal"><h3 data-i18n="does.3.t">We support</h3><p data-i18n="does.3.p"></p></div>
+      </div>
+      <div class="facts reveal">
+        <div><b data-i18n="fact.1.n">6</b><span data-i18n="fact.1.l"></span></div>
+        <div><b data-i18n="fact.2.n">2</b><span data-i18n="fact.2.l"></span></div>
+        <div><b data-i18n="fact.3.n">4</b><span data-i18n="fact.3.l"></span></div>
+        <div><b data-i18n="fact.4.n">1</b><span data-i18n="fact.4.l"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="products">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <span class="eyebrow" data-i18n="nav.products">Products</span>
+          <h2 data-i18n="products.title" style="margin-top:10px">What we can source today</h2>
+          <p class="sub" data-i18n="products.sub"></p>
+        </div>
+      </div>
+      <div class="tools">
+        <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+        <label class="search"><span class="sr-only" data-i18n="search.label">Search products</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#4F6B79" stroke-width="2"/><path d="M11 11 L15 15" stroke="#4F6B79" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="q" data-i18n-ph="search.ph" placeholder="Search products…">
+        </label>
+      </div>
+      <div class="tiles" id="tiles" aria-live="polite"></div>
+      <p class="empty" id="empty" hidden data-i18n="search.none"></p>
+    </div>
+  </section>
+
+  <section id="deliver" class="deliver">
+    <div class="wrap deliver-grid">
+      <div class="reveal">
+        <h2 data-i18n="deliver.title">What we can deliver</h2>
+        <p class="sub" data-i18n="deliver.sub"></p>
+        <div class="conn">
+          <h3 data-i18n="conn.title">Our connections in Japan</h3>
+          <ul><li data-i18n="conn.1"></li><li data-i18n="conn.2"></li><li data-i18n="conn.3"></li></ul>
+        </div>
+      </div>
+      <ul class="dlist reveal" id="dlist"></ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2 data-i18n="how.title">How it works</h2>
+      <p class="sub" data-i18n="how.sub"></p>
+      <ol class="steps">
+        <li class="reveal"><h3 data-i18n="step.1.t"></h3><p data-i18n="step.1.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.2.t"></h3><p data-i18n="step.2.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.3.t"></h3><p data-i18n="step.3.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.4.t"></h3><p data-i18n="step.4.p"></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="markets" class="markets">
+    <div class="wrap">
+      <h2 data-i18n="markets.title">Where we are starting</h2>
+      <p class="sub" data-i18n="markets.sub"></p>
+      <div class="mk" id="mk" role="group" aria-label="Markets"></div>
+      <p class="mk-note" id="mk-note" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq-grid">
+      <div><h2 data-i18n="faq.title">Questions buyers ask</h2></div>
+      <div>
+        <details><summary data-i18n="faq.1.q"></summary><p data-i18n="faq.1.a"></p></details>
+        <details><summary data-i18n="faq.2.q"></summary><p data-i18n="faq.2.a"></p></details>
+        <details><summary data-i18n="faq.3.q"></summary><p data-i18n="faq.3.a"></p></details>
+        <details><summary data-i18n="faq.4.q"></summary><p data-i18n="faq.4.a"></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="story">
+    <div class="wrap story-grid">
+      <div>
+        <h2 data-i18n="story.title">Umikoe means “across the sea.”</h2>
+        <p class="say" data-i18n="story.say"></p>
+        <div class="kanji" lang="ja" aria-hidden="true">海越え</div>
+      </div>
+      <div class="reveal">
+        <p class="body" data-i18n="story.p1"></p>
+        <p class="body" data-i18n="story.p2"></p>
+        <p class="body" data-i18n="story.p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap formgrid">
+      <div>
+        <h2 data-i18n="contact.title">Send a sourcing request</h2>
+        <p class="sub" data-i18n="contact.sub"></p>
+        <div class="where">
+          <p><strong data-i18n="contact.org">Umikoe, by Social Design Collective LLC</strong></p>
+          <p data-i18n="contact.addr">N&amp;E BLD. 6F, 1-12-4 Ginza, Chuo-ku, Tokyo</p>
+          <p><a href="mailto:info@sd-c.net">info@sd-c.net</a></p>
+        </div>
+      </div>
+      <div class="formcard">
+        <form data-umikoe-form novalidate>
+          <div class="row2">
+            <div class="field"><label for="n" data-i18n="form.name">Your name</label><input id="n" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="c"><span data-i18n="form.company">Company</span> <span class="opt">(<span data-i18n="form.optional">optional</span>)</span></label><input id="c" name="company" autocomplete="organization"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="co" data-i18n="form.country">Country</label><input id="co" name="country" list="u-countries" autocomplete="country-name" required></div>
+            <div class="field"><label for="e" data-i18n="form.email">Email</label><input id="e" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="p" data-i18n="form.product">Product group</label><select id="p" name="product"></select></div>
+          <div class="field"><label for="m" data-i18n="form.message">What are you looking for?</label><textarea id="m" name="message" data-i18n-ph="form.message.ph" required></textarea></div>
+          <div class="hp" aria-hidden="true"><input name="_hp" tabindex="-1" autocomplete="off"></div>
+          <button class="btn go" type="submit" data-i18n="form.submit">Send request</button>
+          <p class="formnote" data-i18n="form.note"></p>
+        </form>
+        <div data-form-status role="status" tabindex="-1" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong>Umikoe</strong><br><span data-i18n="footer.tag"></span></div>
+    <div><span data-i18n="footer.by"></span><br><a href="mailto:info@sd-c.net">info@sd-c.net</a> · © <span data-year></span></div>
+  </div>
+</footer>
+
+<a class="btn go float-cta" href="#contact" data-i18n="nav.cta">Send a request</a>
+<a class="to-top" href="#top" data-to-top data-i18n-aria="footer.top" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 11 L9 5 L15 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+<script>
+/*
+ * Umikoe — shared site engine used by all four demos.
+ *
+ * - EN / 日本語 switching for every [data-i18n] element (remembered per visitor)
+ * - Product catalogue: filter chips, search, details dialog, "ask about this"
+ * - Sourcing-request form: validation, real sending (set FORM_ENDPOINT), success state
+ * - Mobile menu, sticky header, active nav link, scroll reveal
+ *
+ * Going live: set FORM_ENDPOINT to a Formspree / Web3Forms / own-backend URL.
+ * While it is empty the form runs in demo mode and nothing leaves the browser.
+ */
+(function () {
+  'use strict';
+
+  var FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+  var CONTACT_EMAIL = 'info@sd-c.net';
+
+  /* ------------------------------------------------------------------ */
+  /* Copy: English and Japanese                                          */
+  /* ------------------------------------------------------------------ */
+  var I18N = {
+    en: {
+      'meta.title': 'Umikoe — Japan trade desk',
+      'demo.banner': 'Design demo for discussion — not a live website yet.',
+      'brand.sub': 'Japan trade desk',
+      'menu': 'Menu',
+      'nav.products': 'Products',
+      'nav.deliver': 'What we deliver',
+      'nav.how': 'How it works',
+      'nav.markets': 'Markets',
+      'nav.about': 'About',
+      'nav.faq': 'FAQ',
+      'nav.contact': 'Contact',
+      'nav.cta': 'Send a request',
+
+      'hero.eyebrow': 'Japan trade desk · Ginza, Tokyo',
+      'hero.title': 'From Japan’s makers, across the sea to your market.',
+      'hero.lead': 'Umikoe connects overseas importers and distributors with trusted Japanese makers, and handles the conversation in English and Japanese from first request to first order.',
+      'hero.cta1': 'Send a sourcing request',
+      'hero.cta2': 'See what we source',
+      'hero.quick': 'Quick start',
+      'hero.quick.product': 'I am looking for',
+      'hero.quick.market': 'To sell in',
+      'hero.quick.go': 'Start my request',
+
+      'fact.1.n': '6', 'fact.1.l': 'product groups ready today',
+      'fact.2.n': '2', 'fact.2.l': 'languages: English and Japanese',
+      'fact.3.n': '4', 'fact.3.l': 'starting markets',
+      'fact.4.n': '1', 'fact.4.l': 'contact, from first message to delivery',
+
+      'does.1.t': 'We source',
+      'does.1.p': 'We find Japanese makers that fit what you need, through our own relationships with companies across Japan.',
+      'does.2.t': 'We connect',
+      'does.2.p': 'We introduce you, share product details and samples, and help both sides agree on price, quantity and terms.',
+      'does.3.t': 'We support',
+      'does.3.p': 'We speak English and Japanese, so nothing gets lost between you and the maker.',
+
+      'products.title': 'What we can source today',
+      'products.sub': 'Six groups of products from makers we know directly. Looking for something else from Japan? Ask us.',
+      'filter.all': 'All',
+      'filter.easy': 'Easy to ship',
+      'filter.gift': 'Gift market',
+      'filter.rules': 'Import rules vary',
+      'filter.business': 'Business buyers',
+      'search.ph': 'Search products…',
+      'search.label': 'Search products',
+      'search.none': 'Nothing matches yet. Ask us anyway — we may still find it in Japan.',
+      'product.more': 'Details',
+      'product.ask': 'Ask about this group',
+      'modal.close': 'Close',
+      'modal.goodfor': 'Good for',
+      'modal.ship': 'Shipping notes',
+
+      'p.snacks.n': 'Furikake, snacks & nuts',
+      'p.snacks.d': 'Rice seasoning and mixed nuts with a long shelf life. A simple first order for grocery and specialty food buyers.',
+      'p.snacks.g': 'Grocery stores, specialty food shops, online food retailers',
+      'p.snacks.s': 'A long shelf life makes this one of the simplest groups to ship.',
+      'p.sweets.n': 'Japanese sweets & gelato',
+      'p.sweets.d': 'Traditional and modern confectionery for gifting and premium retail. Gelato ships frozen.',
+      'p.sweets.g': 'Gift shops, department stores, premium retail, cafés',
+      'p.sweets.s': 'Most sweets travel easily. Gelato needs frozen shipping, which we plan with the maker and the forwarder.',
+      'p.rice.n': 'Rice & premium meat',
+      'p.rice.d': 'Japanese rice and meat for restaurants and gourmet retailers. Some markets ask for certificates such as Halal.',
+      'p.rice.g': 'Restaurants, hotels, gourmet retailers',
+      'p.rice.s': 'Rules differ by country. We check which certificates your market needs before you order.',
+      'p.bath.n': 'Bath goods',
+      'p.bath.d': 'Products from Japan’s bathing culture, for beauty and lifestyle distributors.',
+      'p.bath.g': 'Beauty and lifestyle distributors, spas, gift shops',
+      'p.bath.s': 'Easy to ship.',
+      'p.leather.n': 'Leather goods',
+      'p.leather.d': 'Japanese-made leather products for fashion and gift retailers.',
+      'p.leather.g': 'Fashion boutiques, gift retailers, department stores',
+      'p.leather.s': 'Easy to ship.',
+      'p.auto.n': 'Automotive',
+      'p.auto.d': 'Titanium parts and car cleaning products for parts distributors, workshops and car care shops.',
+      'p.auto.g': 'Parts distributors, workshops, car care shops',
+      'p.auto.s': 'For business buyers. We confirm specifications and quantities with the maker.',
+
+      'deliver.title': 'What we can deliver',
+      'deliver.sub': 'We work with companies in Japan that we know directly. That is why we can move fast and give you clear answers.',
+      'conn.title': 'Our connections in Japan',
+      'conn.1': 'Makers we know directly in food, bath goods, leather and automotive products',
+      'conn.2': 'A wide network of small and medium companies across Japan',
+      'conn.3': 'A team in Tokyo that can meet makers in person',
+      'dl.1.t': 'Direct introduction to the maker',
+      'dl.1.s': 'We know the companies ourselves, so you reach the right person quickly.',
+      'dl.2.t': 'Product details in English',
+      'dl.2.s': 'Specifications, photos, prices and minimum order, translated for you.',
+      'dl.3.t': 'Samples before you order',
+      'dl.3.s': 'Check the quality yourself before you decide.',
+      'dl.4.t': 'A clear quote',
+      'dl.4.s': 'Price, quantity and delivery time, agreed in writing.',
+      'dl.5.t': 'Shipping support',
+      'dl.5.s': 'We coordinate with the maker and the freight forwarder until the goods leave Japan.',
+      'dl.6.t': 'One contact in English',
+      'dl.6.s': 'The same person from your first message to delivery, and for your next order.',
+
+      'how.title': 'How it works',
+      'how.sub': 'Most first orders start small, so both sides can check quality and fit before they grow.',
+      'step.1.t': 'Tell us what you need',
+      'step.1.p': 'Product, target market, rough quantity and price range.',
+      'step.2.t': 'We find the makers',
+      'step.2.p': 'We shortlist Japanese companies that match and confirm they can export.',
+      'step.3.t': 'Samples and terms',
+      'step.3.p': 'You review details and samples. We help agree price, quantity and timing.',
+      'step.4.t': 'Order and shipping',
+      'step.4.p': 'The maker ships through a freight forwarder. We stay in touch with both sides.',
+
+      'markets.title': 'Where we are starting',
+      'markets.sub': 'Our first buyers are in four markets. Buyers anywhere else are welcome to ask.',
+      'markets.from': 'From Tokyo',
+      'markets.pick': 'Pick a market to see what to expect.',
+      'market.uae': 'UAE',
+      'market.uae.note': 'Food buyers usually need Halal certificates. We confirm these with the maker first.',
+      'market.pk': 'Pakistan',
+      'market.pk.note': 'Halal certificates are often needed for food. We confirm the documents before you order.',
+      'market.ca': 'Canada',
+      'market.ca.note': 'Food imports have their own labelling and safety rules. We check the requirements with the maker.',
+      'market.au': 'Australia',
+      'market.au.note': 'Strict biosecurity rules apply to food. Non-food goods are a simpler place to start.',
+      'market.other': 'Somewhere else',
+
+      'faq.title': 'Questions buyers ask',
+      'faq.1.q': 'Is there a minimum order?',
+      'faq.1.a': 'It depends on the maker. We put the minimum order in every quote, and most first orders start small.',
+      'faq.2.q': 'Can I get samples first?',
+      'faq.2.a': 'Yes. You can check samples before you decide to order.',
+      'faq.3.q': 'Who handles shipping?',
+      'faq.3.a': 'The maker ships through a freight forwarder. We coordinate with both until the goods leave Japan.',
+      'faq.4.q': 'My product is not listed. Can you still help?',
+      'faq.4.a': 'Yes. Tell us what you are looking for and we will check our network across Japan.',
+
+      'story.title': 'Umikoe means “across the sea.”',
+      'story.say': 'Say it like this: oo-mee-ko-eh.',
+      'story.p1': 'Many good Japanese makers have never sold outside Japan. Many overseas buyers cannot reach them, because language, business customs and distance get in the way.',
+      'story.p2': 'We stand in the middle and carry the conversation across. We are starting with buyers in the UAE, Pakistan, Canada and Australia.',
+      'story.p3': 'Umikoe is a service of Social Design Collective LLC, based in Ginza, Tokyo.',
+
+      'contact.title': 'Send a sourcing request',
+      'contact.sub': 'Tell us what you are looking for. We reply in English with suitable Japanese makers, or with questions to narrow it down.',
+      'contact.org': 'Umikoe, by Social Design Collective LLC',
+      'contact.addr': 'N&E BLD. 6F, 1-12-4 Ginza, Chuo-ku, Tokyo',
+
+      'form.name': 'Your name',
+      'form.company': 'Company',
+      'form.country': 'Country',
+      'form.email': 'Email',
+      'form.product': 'Product group',
+      'form.other': 'Something else',
+      'form.message': 'What are you looking for?',
+      'form.message.ph': 'Product, quantity, target price, timing',
+      'form.optional': 'optional',
+      'form.submit': 'Send request',
+      'form.sending': 'Sending…',
+      'form.note': 'Demo form: nothing is sent until the live inbox is connected.',
+      'form.privacy': 'We only use your details to reply to this request.',
+      'form.ok.t': 'Request received',
+      'form.ok': 'Thank you, {name}. We will reply in English to {email}.',
+      'form.again': 'Send another request',
+      'form.fail': 'Something went wrong. Please email us at {email}.',
+      'err.required': 'Please fill this in.',
+      'err.email': 'Please enter a valid email address.',
+      'err.message': 'Tell us a little more (at least 10 characters).',
+      'wiz.1': 'About you',
+      'wiz.2': 'Product',
+      'wiz.3': 'Review',
+      'wiz.next': 'Next',
+      'wiz.back': 'Back',
+      'wiz.step': 'Step {n} of 3',
+      'wiz.review': 'Check your request',
+      'wiz.edit': 'Edit',
+
+      'footer.tag': 'Japanese products, across the sea.',
+      'footer.by': 'A service of Social Design Collective LLC, Tokyo',
+      'footer.top': 'Back to top'
+    },
+
+    ja: {
+      'meta.title': 'Umikoe（うみこえ）— ジャパン・トレードデスク',
+      'demo.banner': '打ち合わせ用のデザインデモです。まだ公開サイトではありません。',
+      'brand.sub': 'ジャパン・トレードデスク',
+      'menu': 'メニュー',
+      'nav.products': '取扱商品',
+      'nav.deliver': '提供内容',
+      'nav.how': 'ご利用の流れ',
+      'nav.markets': '対象市場',
+      'nav.about': '私たちについて',
+      'nav.faq': 'よくある質問',
+      'nav.contact': 'お問い合わせ',
+      'nav.cta': 'リクエストを送る',
+
+      'hero.eyebrow': 'ジャパン・トレードデスク · 東京・銀座',
+      'hero.title': '日本のつくり手から、海を越えてあなたの市場へ。',
+      'hero.lead': 'Umikoeは、海外の輸入業者・販売代理店と信頼できる日本のメーカーをつなぎ、最初のお問い合わせから初回発注まで、英語と日本語でのやり取りを担います。',
+      'hero.cta1': '調達リクエストを送る',
+      'hero.cta2': '取扱商品を見る',
+      'hero.quick': 'かんたんスタート',
+      'hero.quick.product': 'お探しの商品',
+      'hero.quick.market': '販売する市場',
+      'hero.quick.go': 'リクエストを始める',
+
+      'fact.1.n': '6', 'fact.1.l': 'すぐにご紹介できる商品カテゴリー',
+      'fact.2.n': '2', 'fact.2.l': '対応言語（英語・日本語）',
+      'fact.3.n': '4', 'fact.3.l': '最初の対象市場',
+      'fact.4.n': '1', 'fact.4.l': '最初のご連絡から納品まで同じ担当者',
+
+      'does.1.t': '探す',
+      'does.1.p': '日本各地の企業との独自のつながりを通じて、ご要望に合う日本のメーカーを見つけます。',
+      'does.2.t': 'つなぐ',
+      'does.2.p': 'メーカーをご紹介し、商品情報やサンプルを共有。価格・数量・条件の合意までお手伝いします。',
+      'does.3.t': '支える',
+      'does.3.p': '英語と日本語の両方に対応。あなたとメーカーの間で、何ひとつ取りこぼしません。',
+
+      'products.title': '現在お取り扱いできる商品',
+      'products.sub': '直接つながりのあるメーカーの6つの商品カテゴリー。その他の日本製品をお探しの場合も、お気軽にご相談ください。',
+      'filter.all': 'すべて',
+      'filter.easy': '輸送しやすい',
+      'filter.gift': 'ギフト向け',
+      'filter.rules': '輸入規制は国により異なる',
+      'filter.business': '法人向け',
+      'search.ph': '商品を検索…',
+      'search.label': '商品を検索',
+      'search.none': '該当する商品がありません。それでもお気軽にご相談ください。日本国内で見つかるかもしれません。',
+      'product.more': '詳しく見る',
+      'product.ask': 'このカテゴリーについて問い合わせる',
+      'modal.close': '閉じる',
+      'modal.goodfor': 'おすすめの販売先',
+      'modal.ship': '輸送について',
+
+      'p.snacks.n': 'ふりかけ・スナック・ナッツ',
+      'p.snacks.d': '賞味期限の長いふりかけやミックスナッツ。食料品店や専門食品のバイヤー様の初回発注に最適です。',
+      'p.snacks.g': '食料品店、専門食品店、食品ECサイト',
+      'p.snacks.s': '賞味期限が長く、最も輸送しやすいカテゴリーのひとつです。',
+      'p.sweets.n': '和菓子・ジェラート',
+      'p.sweets.d': 'ギフトや高級小売向けの、伝統的な菓子とモダンな菓子。ジェラートは冷凍で輸送します。',
+      'p.sweets.g': 'ギフトショップ、百貨店、高級小売店、カフェ',
+      'p.sweets.s': '多くの菓子は輸送しやすい商品です。ジェラートは冷凍輸送が必要なため、メーカーやフォワーダーと事前に調整します。',
+      'p.rice.n': '米・高級食肉',
+      'p.rice.d': 'レストランや高級食料品店向けの日本米と食肉。市場によってはハラール認証などの証明書が必要です。',
+      'p.rice.g': 'レストラン、ホテル、高級食料品店',
+      'p.rice.s': '規制は国ごとに異なります。ご発注前に、販売市場で必要な証明書を確認します。',
+      'p.bath.n': 'バス用品',
+      'p.bath.d': '日本の入浴文化から生まれた商品を、美容・ライフスタイル系の販売代理店へ。',
+      'p.bath.g': '美容・ライフスタイル系代理店、スパ、ギフトショップ',
+      'p.bath.s': '輸送しやすい商品です。',
+      'p.leather.n': '革製品',
+      'p.leather.d': 'ファッション・ギフト小売向けの日本製レザー製品。',
+      'p.leather.g': 'ファッションブティック、ギフト小売店、百貨店',
+      'p.leather.s': '輸送しやすい商品です。',
+      'p.auto.n': '自動車関連',
+      'p.auto.d': '部品販売代理店、整備工場、カーケアショップ向けのチタン部品や洗車用品。',
+      'p.auto.g': '部品代理店、整備工場、カーケアショップ',
+      'p.auto.s': '法人のお客様向けです。仕様と数量はメーカーと確認します。',
+
+      'deliver.title': '私たちにできること',
+      'deliver.sub': '直接つながりのある日本企業と取引しているから、スピーディーに明確な回答をお届けできます。',
+      'conn.title': '日本でのネットワーク',
+      'conn.1': '食品、バス用品、革製品、自動車関連の、直接取引のあるメーカー',
+      'conn.2': '日本全国の中小企業との幅広いネットワーク',
+      'conn.3': 'メーカーと直接会える東京のチーム',
+      'dl.1.t': 'メーカーへの直接のご紹介',
+      'dl.1.s': '私たち自身が企業を知っているから、適切な担当者にすぐつながります。',
+      'dl.2.t': '英語での商品情報',
+      'dl.2.s': '仕様、写真、価格、最小発注数量を翻訳してお届けします。',
+      'dl.3.t': '発注前のサンプル',
+      'dl.3.s': 'ご判断の前に、品質をご自身でご確認いただけます。',
+      'dl.4.t': '明確なお見積もり',
+      'dl.4.s': '価格・数量・納期を書面で合意します。',
+      'dl.5.t': '輸送サポート',
+      'dl.5.s': '商品が日本を出るまで、メーカーとフォワーダーとの調整を行います。',
+      'dl.6.t': '英語対応の専任窓口',
+      'dl.6.s': '最初のご連絡から納品まで、そして次のご注文も、同じ担当者が対応します。',
+
+      'how.title': 'ご利用の流れ',
+      'how.sub': '多くの初回発注は小ロットから。双方が品質と相性を確かめてから、取引を広げていきます。',
+      'step.1.t': 'ご要望をお聞かせください',
+      'step.1.p': '商品、販売市場、おおよその数量と価格帯。',
+      'step.2.t': 'メーカーを探します',
+      'step.2.p': '条件に合う日本企業を選定し、輸出が可能か確認します。',
+      'step.3.t': 'サンプルと条件',
+      'step.3.p': '商品情報とサンプルをご確認いただき、価格・数量・時期の合意をお手伝いします。',
+      'step.4.t': '発注と輸送',
+      'step.4.p': 'メーカーがフォワーダーを通じて出荷。私たちは双方と連絡を取り続けます。',
+
+      'markets.title': '最初の対象市場',
+      'markets.sub': 'まずは4つの市場のバイヤー様から始めています。その他の地域からのご相談も歓迎します。',
+      'markets.from': '東京から',
+      'markets.pick': '市場を選ぶと、注意点をご覧いただけます。',
+      'market.uae': 'アラブ首長国連邦',
+      'market.uae.note': '食品にはハラール認証が求められることが多いため、まずメーカーに確認します。',
+      'market.pk': 'パキスタン',
+      'market.pk.note': '食品にはハラール認証が必要な場合が多いため、ご発注前に必要書類を確認します。',
+      'market.ca': 'カナダ',
+      'market.ca.note': '食品の輸入には独自の表示・安全基準があります。要件をメーカーと確認します。',
+      'market.au': 'オーストラリア',
+      'market.au.note': '食品には厳しい検疫ルールがあります。食品以外の商品から始めるとスムーズです。',
+      'market.other': 'その他の地域',
+
+      'faq.title': 'よくある質問',
+      'faq.1.q': '最小発注数量はありますか？',
+      'faq.1.a': 'メーカーによって異なります。最小発注数量は必ずお見積もりに記載します。多くの初回発注は小ロットから始まります。',
+      'faq.2.q': '先にサンプルをもらえますか？',
+      'faq.2.a': 'はい。ご発注を決める前にサンプルをご確認いただけます。',
+      'faq.3.q': '輸送は誰が担当しますか？',
+      'faq.3.a': 'メーカーがフォワーダーを通じて出荷します。商品が日本を出るまで、私たちが双方と調整します。',
+      'faq.4.q': '掲載されていない商品でも相談できますか？',
+      'faq.4.a': 'はい。お探しの商品をお知らせいただければ、日本全国のネットワークで確認します。',
+
+      'story.title': '「うみこえ」は「海を越えて」という意味です。',
+      'story.say': '読み方：うみこえ（oo-mee-ko-eh）',
+      'story.p1': '優れた日本のメーカーの多くは、まだ海外で販売したことがありません。そして多くの海外バイヤーは、言語や商習慣、距離の壁により、そうしたメーカーにたどり着けずにいます。',
+      'story.p2': '私たちはその間に立ち、対話を海の向こうへ届けます。まずはUAE、パキスタン、カナダ、オーストラリアのバイヤー様から始めています。',
+      'story.p3': 'Umikoeは、東京・銀座に拠点を置く Social Design Collective LLC のサービスです。',
+
+      'contact.title': '調達リクエストを送る',
+      'contact.sub': 'お探しの商品をお知らせください。適した日本のメーカー、または条件を絞り込むためのご質問を、英語でお返事します。',
+      'contact.org': 'Umikoe（運営：Social Design Collective LLC）',
+      'contact.addr': '東京都中央区銀座1-12-4 N&E BLD. 6F',
+
+      'form.name': 'お名前',
+      'form.company': '会社名',
+      'form.country': '国',
+      'form.email': 'メールアドレス',
+      'form.product': '商品カテゴリー',
+      'form.other': 'その他',
+      'form.message': 'お探しの商品',
+      'form.message.ph': '商品、数量、希望価格、時期など',
+      'form.optional': '任意',
+      'form.submit': 'リクエストを送信',
+      'form.sending': '送信中…',
+      'form.note': 'デモフォームです。受信先の設定が完了するまで送信されません。',
+      'form.privacy': 'ご入力いただいた情報は、本リクエストへの返信にのみ使用します。',
+      'form.ok.t': 'リクエストを受け付けました',
+      'form.ok': '{name}様、ありがとうございます。{email} 宛にご連絡いたします。',
+      'form.again': '別のリクエストを送る',
+      'form.fail': '送信できませんでした。{email} までメールでご連絡ください。',
+      'err.required': '入力してください。',
+      'err.email': '正しいメールアドレスを入力してください。',
+      'err.message': 'もう少し詳しくお書きください（10文字以上）。',
+      'wiz.1': 'お客様情報',
+      'wiz.2': '商品',
+      'wiz.3': '確認',
+      'wiz.next': '次へ',
+      'wiz.back': '戻る',
+      'wiz.step': 'ステップ {n} / 3',
+      'wiz.review': '内容をご確認ください',
+      'wiz.edit': '修正',
+
+      'footer.tag': '日本の商品を、海の向こうへ。',
+      'footer.by': 'Social Design Collective LLC（東京）のサービス',
+      'footer.top': 'ページ上部へ'
+    }
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Products (illustrations are the "shipping container" tiles)         */
+  /* ------------------------------------------------------------------ */
+  var PRODUCTS = [
+    { id: 'snacks', color: '#E8644A', tags: ['easy'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M72 78 Q120 22 168 78"/><path d="M56 78 H184 Q180 116 144 124 H96 Q60 116 56 78 Z" fill="#FFFFFF"/><path d="M100 124 V134 H140 V124"/><path d="M104 60 l6 -5 M124 48 l7 3 M140 62 l5 -6 M118 66 l6 2 M96 72 l5 -3 M150 72 l4 -4" stroke-width="4"/><path d="M160 38 L212 16 M166 48 L216 30" stroke-width="4"/></svg>' },
+    { id: 'sweets', color: '#F5B82E', tags: ['gift'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#0E3A53" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M42 128 L112 34"/><circle cx="60" cy="104" r="17" fill="#FFFFFF"/><circle cx="80" cy="77" r="17" fill="#F8D9CF"/><circle cx="100" cy="50" r="17" fill="#CFE9D9"/><path d="M148 76 L172 134 L196 76 Z" fill="#FFFFFF"/><path d="M158 100 L186 100 M164 116 L180 116" stroke-width="3"/><circle cx="172" cy="56" r="26" fill="#FFFFFF"/></svg>' },
+    { id: 'rice', color: '#3FA796', tags: ['rules'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M120 22 Q134 22 142 36 L176 96 Q188 122 160 126 H80 Q52 122 64 96 L98 36 Q106 22 120 22 Z" fill="#FFFFFF"/><rect x="98" y="92" width="44" height="34" fill="#0E3A53" stroke="none"/></svg>' },
+    { id: 'bath', color: '#1D7A9C', tags: ['easy'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M70 72 H170 L160 130 H80 Z" fill="#FFFFFF"/><path d="M74 90 H166 M78 114 H162" stroke="#1D7A9C" stroke-width="4"/><path d="M96 56 q-9 -10 0 -20 q9 -10 0 -20 M120 56 q-9 -10 0 -20 q9 -10 0 -20 M144 56 q-9 -10 0 -20 q9 -10 0 -20" stroke-width="4"/></svg>' },
+    { id: 'leather', color: '#0E3A53', tags: ['easy', 'gift'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M94 58 Q94 24 120 24 Q146 24 146 58"/><rect x="62" y="58" width="116" height="72" rx="9" fill="#FFFFFF"/><path d="M62 68 Q120 112 178 68" stroke="#0E3A53" stroke-width="4"/><circle cx="120" cy="92" r="6" fill="#F5B82E" stroke="#0E3A53" stroke-width="3"/><path d="M74 120 H166" stroke="#0E3A53" stroke-width="2.5" stroke-dasharray="6 6"/></svg>' },
+    { id: 'auto', color: '#9CCBD6', tags: ['business'],
+      icon: '<svg viewBox="0 0 240 150" fill="none" stroke="#0E3A53" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="112" cy="78" r="50" fill="#0E3A53"/><circle cx="112" cy="78" r="33" fill="#FFFFFF"/><path d="M112 78 L112 45 M112 78 L143.4 67.8 M112 78 L131.4 104.7 M112 78 L92.6 104.7 M112 78 L80.6 67.8"/><circle cx="112" cy="78" r="8" fill="#F5B82E"/><path d="M196 26 v20 M186 36 h20 M206 70 v12 M200 76 h12" stroke-width="4"/></svg>' }
+  ];
+  var MARKETS = ['uae', 'pk', 'ca', 'au'];
+
+  /* ------------------------------------------------------------------ */
+  /* Helpers                                                             */
+  /* ------------------------------------------------------------------ */
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function store(key, val) {
+    try {
+      if (val === undefined) return localStorage.getItem(key);
+      localStorage.setItem(key, val);
+    } catch (e) { return null; }
+  }
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var U = window.Umikoe = {
+    lang: 'en',
+    products: PRODUCTS,
+    markets: MARKETS,
+    esc: esc,
+    reduceMotion: reduceMotion,
+    _langHooks: [],
+
+    t: function (key, vars) {
+      var s = (I18N[U.lang] && I18N[U.lang][key]);
+      if (s == null) s = I18N.en[key];
+      if (s == null) return key;
+      if (vars) s = s.replace(/\{(\w+)\}/g, function (_, k) { return vars[k] != null ? vars[k] : ''; });
+      return s;
+    },
+
+    /* Run fn now and again whenever the language changes. */
+    onLang: function (fn) { U._langHooks.push(fn); fn(U.lang); },
+
+    setLang: function (lang) {
+      if (!I18N[lang]) return;
+      U.lang = lang;
+      document.documentElement.lang = lang;
+      document.body.setAttribute('data-lang', lang);
+      store('umikoe-lang', lang);
+      $$('[data-i18n]').forEach(function (el) { el.textContent = U.t(el.getAttribute('data-i18n')); });
+      $$('[data-i18n-ph]').forEach(function (el) { el.setAttribute('placeholder', U.t(el.getAttribute('data-i18n-ph'))); });
+      $$('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', U.t(el.getAttribute('data-i18n-aria'))); });
+      $$('[data-lang-btn]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-btn') === lang));
+      });
+      U._langHooks.forEach(function (fn) { fn(lang); });
+    },
+
+    product: function (id) {
+      for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === id) return PRODUCTS[i];
+      return null;
+    },
+
+    /* Tag pills for a product, using each demo's own class names. */
+    tagsHTML: function (p, cls) {
+      return p.tags.map(function (tg) {
+        return '<span class="' + (cls || 'tag') + ' ' + (cls || 'tag') + '--' + tg + '">' + esc(U.t('filter.' + tg)) + '</span>';
+      }).join(' ');
+    }
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Catalogue: render + filter + search                                 */
+  /* opts: { grid, card(p), filters (container), search (input), empty } */
+  /* ------------------------------------------------------------------ */
+  U.catalog = function (opts) {
+    var grid = typeof opts.grid === 'string' ? $(opts.grid) : opts.grid;
+    if (!grid) return;
+    var state = { filter: 'all', q: '' };
+    var filters = opts.filters ? $(opts.filters) : null;
+    var search = opts.search ? $(opts.search) : null;
+    var empty = opts.empty ? $(opts.empty) : null;
+
+    function matches(p) {
+      if (state.filter !== 'all' && p.tags.indexOf(state.filter) < 0) return false;
+      if (!state.q) return true;
+      var hay = [U.t('p.' + p.id + '.n'), U.t('p.' + p.id + '.d'), U.t('p.' + p.id + '.g')]
+        .concat(p.tags.map(function (tg) { return U.t('filter.' + tg); }))
+        // Search both languages, so "nuts" still works on the Japanese page.
+        .concat([I18N.en['p.' + p.id + '.n'], I18N.en['p.' + p.id + '.d']])
+        .join(' ').toLowerCase();
+      return hay.indexOf(state.q) >= 0;
+    }
+
+    function render() {
+      var shown = PRODUCTS.filter(matches);
+      grid.innerHTML = shown.map(opts.card).join('');
+      $$('[data-open-product]', grid).forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          U.openProduct(el.getAttribute('data-open-product'), el);
+        });
+      });
+      if (empty) empty.hidden = shown.length > 0;
+      if (opts.after) opts.after(shown);
+    }
+
+    if (filters) {
+      var tags = ['all', 'easy', 'gift', 'rules', 'business'];
+      function drawFilters() {
+        filters.innerHTML = tags.map(function (tg) {
+          return '<button type="button" class="chip" data-filter="' + tg + '" aria-pressed="' + (state.filter === tg) + '">' + esc(U.t('filter.' + tg)) + '</button>';
+        }).join('');
+      }
+      filters.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-filter]');
+        if (!b) return;
+        state.filter = b.getAttribute('data-filter');
+        $$('[data-filter]', filters).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        render();
+      });
+      U.onLang(drawFilters);
+    }
+    if (search) {
+      search.addEventListener('input', function () { state.q = search.value.trim().toLowerCase(); render(); });
+    }
+    U.onLang(render);
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Product details dialog                                              */
+  /* ------------------------------------------------------------------ */
+  var dlg, lastOpener, openId;
+  function buildDialog() {
+    dlg = document.createElement('dialog');
+    dlg.className = 'u-modal';
+    dlg.setAttribute('aria-labelledby', 'u-modal-title');
+    dlg.innerHTML =
+      '<div class="u-modal-art"></div>' +
+      '<div class="u-modal-body">' +
+      '  <button type="button" class="u-modal-x" data-close></button>' +
+      '  <div class="u-modal-tags"></div>' +
+      '  <h3 id="u-modal-title"></h3>' +
+      '  <p class="u-modal-desc"></p>' +
+      '  <dl><dt data-k="goodfor"></dt><dd data-v="goodfor"></dd><dt data-k="ship"></dt><dd data-v="ship"></dd></dl>' +
+      '  <div class="u-modal-actions"><a href="#contact" class="u-modal-ask"></a></div>' +
+      '</div>';
+    document.body.appendChild(dlg);
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+    });
+    dlg.addEventListener('close', function () {
+      openId = null;
+      if (lastOpener && lastOpener.focus) lastOpener.focus();
+    });
+    $('.u-modal-ask', dlg).addEventListener('click', function (e) {
+      e.preventDefault();
+      var id = openId;
+      dlg.close();
+      U.askAbout(id);
+    });
+  }
+  function fillDialog() {
+    var p = U.product(openId);
+    if (!p) return;
+    $('.u-modal-art', dlg).style.backgroundColor = p.color;
+    $('.u-modal-art', dlg).innerHTML = p.icon;
+    $('.u-modal-tags', dlg).innerHTML = U.tagsHTML(p, 'u-tag');
+    $('#u-modal-title', dlg).textContent = U.t('p.' + p.id + '.n');
+    $('.u-modal-desc', dlg).textContent = U.t('p.' + p.id + '.d');
+    $('[data-k="goodfor"]', dlg).textContent = U.t('modal.goodfor');
+    $('[data-v="goodfor"]', dlg).textContent = U.t('p.' + p.id + '.g');
+    $('[data-k="ship"]', dlg).textContent = U.t('modal.ship');
+    $('[data-v="ship"]', dlg).textContent = U.t('p.' + p.id + '.s');
+    $('.u-modal-ask', dlg).textContent = U.t('product.ask');
+    $('.u-modal-x', dlg).setAttribute('aria-label', U.t('modal.close'));
+    $('.u-modal-x', dlg).innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  }
+  U.openProduct = function (id, opener) {
+    if (!dlg) buildDialog();
+    openId = id;
+    lastOpener = opener || document.activeElement;
+    fillDialog();
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  };
+  U.onLang(function () { if (dlg && openId) fillDialog(); });
+
+  /* Jump to the form with a product group already chosen. */
+  U.askAbout = function (id) {
+    var form = $('form[data-umikoe-form]');
+    if (!form) return;
+    var sel = $('select[name="product"]', form);
+    if (sel && id) sel.value = id;
+    if (form._goToStep) form._goToStep(0);
+    var target = $('#contact') || form;
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    var first = $('input[name="name"]', form);
+    setTimeout(function () { if (first) first.focus({ preventScroll: true }); }, reduceMotion ? 0 : 500);
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Form: options, validation, sending                                  */
+  /* ------------------------------------------------------------------ */
+  function fillProductSelect(sel) {
+    var v = sel.value;
+    sel.innerHTML = PRODUCTS.map(function (p) {
+      return '<option value="' + p.id + '">' + esc(U.t('p.' + p.id + '.n')) + '</option>';
+    }).join('') + '<option value="other">' + esc(U.t('form.other')) + '</option>';
+    if (v) sel.value = v;
+  }
+  function fillMarketSelect(sel) {
+    var v = sel.value;
+    sel.innerHTML = MARKETS.map(function (m) {
+      return '<option value="' + m + '">' + esc(U.t('market.' + m)) + '</option>';
+    }).join('') + '<option value="other">' + esc(U.t('market.other')) + '</option>';
+    if (v) sel.value = v;
+  }
+  function countryList() {
+    var dl = document.getElementById('u-countries');
+    if (!dl) {
+      dl = document.createElement('datalist');
+      dl.id = 'u-countries';
+      document.body.appendChild(dl);
+    }
+    dl.innerHTML = MARKETS.map(function (m) { return '<option value="' + esc(U.t('market.' + m)) + '">'; }).join('');
+  }
+
+  var RULES = {
+    name: function (v) { return v ? '' : 'err.required'; },
+    country: function (v) { return v ? '' : 'err.required'; },
+    email: function (v) {
+      if (!v) return 'err.required';
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'err.email';
+    },
+    message: function (v) {
+      if (!v) return 'err.required';
+      return v.length >= 10 ? '' : 'err.message';
+    }
+  };
+
+  function fieldError(input, key) {
+    var wrap = input.closest('.field') || input.parentNode;
+    var err = $('.u-err', wrap);
+    if (!err) {
+      err = document.createElement('p');
+      err.className = 'u-err';
+      err.id = 'err-' + input.id;
+      wrap.appendChild(err);
+    }
+    if (key) {
+      err.setAttribute('data-key', key);
+      err.textContent = U.t(key);
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', err.id);
+      wrap.classList.add('has-err');
+    } else {
+      err.removeAttribute('data-key');
+      err.textContent = '';
+      input.removeAttribute('aria-invalid');
+      wrap.classList.remove('has-err');
+    }
+  }
+
+  /* Validate the named fields (or all). Returns true when they pass. */
+  U.validate = function (form, names) {
+    var bad = null;
+    (names || Object.keys(RULES)).forEach(function (n) {
+      var input = form.elements[n];
+      if (!input || !RULES[n]) return;
+      var key = RULES[n](input.value.trim());
+      fieldError(input, key);
+      if (key && !bad) bad = input;
+    });
+    if (bad) bad.focus();
+    return !bad;
+  };
+
+  U.formData = function (form) {
+    var out = {};
+    ['name', 'company', 'country', 'email', 'product', 'message'].forEach(function (n) {
+      var el = form.elements[n];
+      if (el) out[n] = el.value.trim();
+    });
+    if (out.product) out.productLabel = out.product === 'other' ? U.t('form.other') : U.t('p.' + out.product + '.n');
+    return out;
+  };
+
+  function bindForm(form) {
+    var status = $('[data-form-status]', form.parentNode) || $('[data-form-status]');
+    var btn = $('button[type="submit"]', form);
+
+    $$('select[name="product"]', form).forEach(function (sel) { U.onLang(function () { fillProductSelect(sel); }); });
+
+    // Re-check a field once the visitor has been told it is wrong.
+    form.addEventListener('input', function (e) {
+      var n = e.target.name;
+      if (RULES[n] && e.target.getAttribute('aria-invalid') === 'true') {
+        fieldError(e.target, RULES[n](e.target.value.trim()));
+      }
+    });
+    form.addEventListener('focusout', function (e) {
+      var n = e.target.name;
+      if (RULES[n] && e.target.value.trim()) fieldError(e.target, RULES[n](e.target.value.trim()));
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.elements._hp && form.elements._hp.value) return; // spam honeypot
+      if (!U.validate(form)) return;
+      var data = U.formData(form);
+      data.language = U.lang;
+      data.page = location.pathname;
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = U.t('form.sending');
+
+      var send = FORM_ENDPOINT
+        ? fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(data)
+          }).then(function (r) { if (!r.ok) throw new Error(r.status); })
+        : new Promise(function (res) { setTimeout(res, 700); });
+
+      send.then(function () {
+        showStatus(status, 'ok', data);
+        form.reset();
+        form.classList.add('is-sent');
+        if (form._goToStep) form._goToStep(0);
+      }).catch(function () {
+        showStatus(status, 'fail');
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = label;
+      });
+    });
+  }
+
+  function showStatus(el, kind, data) {
+    if (!el) return;
+    el.hidden = false;
+    el.className = el.className.replace(/\bis-(ok|fail)\b/g, '').trim() + ' is-' + kind;
+    el.innerHTML = '';
+    if (kind === 'ok') {
+      var h = document.createElement('strong');
+      h.textContent = U.t('form.ok.t');
+      var p = document.createElement('p');
+      p.textContent = U.t('form.ok', { name: data.name, email: data.email });
+      var again = document.createElement('button');
+      again.type = 'button';
+      again.className = 'u-again';
+      again.textContent = U.t('form.again');
+      again.addEventListener('click', function () {
+        el.hidden = true;
+        var f = $('form[data-umikoe-form]');
+        f.classList.remove('is-sent');
+        f.elements.name.focus();
+      });
+      el.appendChild(h); el.appendChild(p); el.appendChild(again);
+    } else {
+      el.textContent = U.t('form.fail', { email: CONTACT_EMAIL });
+    }
+    el.focus && el.focus();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Page chrome: menu, header, active link, reveal, misc                */
+  /* ------------------------------------------------------------------ */
+  function bindChrome() {
+    var toggle = $('[data-menu-toggle]');
+    function setMenu(open) {
+      document.body.classList.toggle('menu-open', open);
+      if (toggle) toggle.setAttribute('aria-expanded', String(open));
+    }
+    if (toggle) {
+      toggle.addEventListener('click', function () { setMenu(!document.body.classList.contains('menu-open')); });
+      $$('[data-menu] a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+      window.addEventListener('resize', function () { if (window.innerWidth > 960) setMenu(false); });
+    }
+
+    var header = $('[data-header]');
+    if (header) {
+      var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 12); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+    var toTop = $('[data-to-top]');
+    if (toTop) {
+      window.addEventListener('scroll', function () { toTop.classList.toggle('show', window.scrollY > 900); }, { passive: true });
+    }
+
+    $$('[data-lang-btn]').forEach(function (b) {
+      b.addEventListener('click', function () { U.setLang(b.getAttribute('data-lang-btn')); });
+    });
+
+    $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+    if ('IntersectionObserver' in window) {
+      // Highlight the nav link for the section on screen.
+      var links = $$('[data-nav] a[href^="#"]');
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && byId[en.target.id]) {
+            links.forEach(function (a) { a.classList.remove('active'); });
+            byId[en.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+
+      if (!reduceMotion) {
+        var rev = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('in'); rev.unobserve(en.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        $$('.reveal').forEach(function (el) { rev.observe(el); });
+      } else {
+        $$('.reveal').forEach(function (el) { el.classList.add('in'); });
+      }
+    } else {
+      $$('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Boot                                                                */
+  /* ------------------------------------------------------------------ */
+  function boot() {
+    var urlLang = (location.search.match(/[?&]lang=(en|ja)/) || [])[1];
+    var saved = store('umikoe-lang');
+    var initial = urlLang || (saved === 'ja' || saved === 'en' ? saved : 'en');
+    U.lang = initial;
+
+    bindChrome();
+    $$('form[data-umikoe-form]').forEach(bindForm);
+    $$('select[data-market-select]').forEach(function (sel) { U.onLang(function () { fillMarketSelect(sel); }); });
+    $$('select[data-product-select]').forEach(function (sel) { U.onLang(function () { fillProductSelect(sel); }); });
+    U.onLang(countryList);
+    U.setLang(initial);
+    document.dispatchEvent(new CustomEvent('umikoe:ready'));
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+<script>
+(function () {
+  var U = window.Umikoe;
+  var check = '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#F5B82E"/><path d="M8.5 15.5 L13 20 L21.5 10.5" fill="none" stroke="#0E3A53" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  U.catalog({
+    grid: '#tiles', filters: '#chips', search: '#q', empty: '#empty',
+    card: function (p) {
+      return '<a class="tile" href="#products" data-open-product="' + p.id + '">' +
+        '<div class="box" style="background-color:' + p.color + '">' + p.icon + '</div>' +
+        '<h3>' + U.esc(U.t('p.' + p.id + '.n')) + '</h3>' +
+        '<p>' + U.esc(U.t('p.' + p.id + '.d')) + '</p>' +
+        U.tagsHTML(p, 'tag') + '<br><span class="more">' + U.esc(U.t('product.more')) + '</span></a>';
+    }
+  });
+
+  U.onLang(function () {
+    var html = '';
+    for (var i = 1; i <= 6; i++) html += '<li>' + check + '<div><b>' + U.esc(U.t('dl.' + i + '.t')) + '</b><span>' + U.esc(U.t('dl.' + i + '.s')) + '</span></div></li>';
+    document.getElementById('dlist').innerHTML = html;
+  });
+
+  // Markets: pick one to read its note.
+  var current = 'uae', mk = document.getElementById('mk'), note = document.getElementById('mk-note');
+  function drawMarkets() {
+    mk.innerHTML = U.markets.map(function (m) {
+      return '<button type="button" data-m="' + m + '" aria-pressed="' + (m === current) + '"><b>' + U.esc(U.t('market.' + m)) + '</b><small>' + U.esc(U.t('markets.from')) + ' →</small></button>';
+    }).join('');
+    note.textContent = U.t('market.' + current + '.note');
+  }
+  mk.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-m]'); if (!b) return;
+    current = b.getAttribute('data-m'); drawMarkets();
+    mk.querySelector('[data-m="' + current + '"]').focus();
+  });
+  U.onLang(drawMarkets);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Umikoe — Japan trade desk</title>
+<meta name="description" content="Umikoe connects overseas importers and distributors with trusted Japanese makers, in English and Japanese.">
+<meta name="theme-color" content="#0E3A53">
+<script>document.documentElement.className+=' js'</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+  :root{
+    --ink:#0E3A53; --sea:#1D7A9C; --shallow:#E4F1F4; --sun:#F5B82E; --coral:#E8644A;
+    --mute:#4F6B79; --line:#CFE0E5; --white:#FFFFFF;
+    --display:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',Georgia,serif;
+    --text:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
+    --u-display:var(--display); --u-ink:var(--ink); --u-mute:var(--mute); --u-line:var(--line); --u-accent:var(--sun);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--text);color:var(--ink);background:var(--white);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body[data-lang="ja"]{line-height:1.85;font-size:16.5px}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  h1,h2{font-family:var(--display);font-weight:900;letter-spacing:-.01em;text-wrap:balance}
+  h2{font-size:clamp(28px,3.4vw,44px);line-height:1.18}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sea)}
+  .eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+  .sub{margin-top:14px;color:var(--mute);max-width:58ch;font-size:18px}
+
+  .demo{background:#082638;color:#BFDCE6;font-size:13px;text-align:center;padding:7px 16px}
+
+  /* header */
+  .top{background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(12px);-webkit-backdrop-filter:saturate(1.6) blur(12px);position:sticky;top:0;z-index:20;border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+  .top.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(14,58,83,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand b{font-family:var(--display);font-weight:900;font-size:25px;line-height:1;letter-spacing:.01em}
+  .brand small{display:block;font-size:11.5px;color:var(--mute);font-weight:500;margin-top:3px}
+  .links{display:flex;gap:26px;list-style:none;font-size:15px;font-weight:500}
+  .links a{text-decoration:none;color:var(--mute);position:relative;padding:6px 0}
+  .links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--sun);transform:scaleX(0);transition:transform .25s}
+  .links a:hover,.links a.active{color:var(--ink)}
+  .links a.active::after,.links a:hover::after{transform:scaleX(1)}
+  .right{display:flex;align-items:center;gap:12px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;flex-shrink:0;background:var(--white)}
+  .lang button{border:0;background:none;padding:7px 12px;cursor:pointer;font:inherit;color:var(--mute)}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--white)}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--white);cursor:pointer;align-items:center;justify-content:center}
+  .burger span,.burger span::before,.burger span::after{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;position:relative;transition:transform .25s,background .25s}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0}
+  .burger span::before{top:-6px}.burger span::after{top:6px}
+  .menu-open .burger span{background:transparent}
+  .menu-open .burger span::before{transform:translateY(6px) rotate(45deg)}
+  .menu-open .burger span::after{transform:translateY(-6px) rotate(-45deg)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 26px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;font-family:inherit;border:2px solid var(--ink);cursor:pointer;line-height:1.2;transition:transform .15s,background .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.go{background:var(--sun);border-color:var(--sun);color:var(--ink);box-shadow:0 8px 20px rgba(245,184,46,.35)}
+  .btn.go:hover{background:#FFC84A;border-color:#FFC84A}
+  .btn.plain{background:transparent;color:var(--ink)}
+  .btn.plain:hover{background:var(--white)}
+  .btn.small{padding:9px 18px;font-size:14px;box-shadow:none}
+  .btn[disabled]{opacity:.7;cursor:progress;transform:none}
+
+  /* hero */
+  .hero{background:linear-gradient(#FFFFFF 0%,#EAF5F7 55%,#D5EAEF 100%);text-align:center;padding-top:56px}
+  .hero h1{font-size:clamp(34px,5vw,64px);line-height:1.12;max-width:22ch;margin:16px auto 0}
+  body[data-lang="ja"] .hero h1{font-size:clamp(30px,4.4vw,56px);line-height:1.3}
+  .hero .lead{margin:22px auto 0;font-size:19px;color:var(--mute);max-width:56ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;justify-content:center}
+  .scene-box{margin-top:-3vw;line-height:0;overflow:hidden}
+  .scene{display:block;width:100%;height:auto}
+  @media (prefers-reduced-motion:no-preference){
+    .ship{animation:sail 7s cubic-bezier(.2,.7,.2,1) both}
+    .bob{animation:bob 5s ease-in-out 7s infinite}
+    .wave1{animation:drift 9s linear infinite}
+    .wave2{animation:drift2 13s linear infinite}
+    @keyframes sail{from{transform:translateX(-110px)}to{transform:translateX(0)}}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+    @keyframes drift{from{transform:translateX(0)}to{transform:translateX(120px)}}
+    @keyframes drift2{from{transform:translateX(0)}to{transform:translateX(-170px)}}
+  }
+
+  .does{background:var(--ink);color:var(--white);padding:36px 0 72px}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .three h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px;color:var(--sun)}
+  .three p{color:#C5DEE7;font-size:16.5px;max-width:34ch}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid rgba(255,255,255,.14)}
+  .facts div{padding:24px 20px 0 0}
+  .facts b{display:block;font-family:var(--display);font-size:46px;line-height:1;color:var(--white)}
+  .facts span{display:block;margin-top:8px;font-size:14.5px;color:#9FC3D0;max-width:22ch}
+
+  section{padding:96px 0}
+
+  /* catalogue */
+  .cat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+  .tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:34px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1px solid var(--line);background:var(--white);color:var(--mute);font:inherit;font-size:14px;font-weight:500;padding:8px 15px;border-radius:999px;cursor:pointer;transition:all .2s}
+  .chip:hover{border-color:var(--sea);color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .search{position:relative;margin-left:auto;min-width:240px}
+  .search input{width:100%;font:inherit;font-size:15px;padding:10px 14px 10px 40px;border:1px solid var(--line);border-radius:999px;color:var(--ink);background:var(--white)}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 26px;margin-top:34px}
+  .tile{display:block;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:none}
+  .box{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+       background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 3px,rgba(255,255,255,0) 3px 20px);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+  .box::before,.box::after{content:"";position:absolute;left:0;right:0;height:9px;background:rgba(6,30,45,.2)}
+  .box::before{top:0}.box::after{bottom:0}
+  .box svg{width:62%;height:auto;position:relative;transition:transform .35s}
+  .tile:hover .box{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 18px 30px rgba(14,58,83,.18)}
+  .tile:hover .box svg{transform:scale(1.05)}
+  .tile h3{font-size:20px;font-weight:700;margin-top:16px;line-height:1.3}
+  .tile p{font-size:15.5px;color:var(--mute);margin-top:6px}
+  .tile .more{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:14px;font-weight:700;color:var(--sea)}
+  .tile .more::after{content:"→";transition:transform .2s}
+  .tile:hover .more::after{transform:translateX(4px)}
+  .tag{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 11px;border-radius:999px;margin-top:10px;background:var(--shallow);color:#145E79}
+  .tag--rules{background:#FFF1CF;color:#7A5200}
+  .empty{margin-top:30px;padding:26px;border:2px dashed var(--line);border-radius:12px;color:var(--mute);text-align:center}
+
+  .deliver{background:var(--shallow)}
+  .deliver-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
+  .conn{margin-top:30px;padding-top:22px;border-top:2px solid var(--ink)}
+  .conn h3{font-size:18px;font-weight:700;margin-bottom:12px}
+  .conn ul{list-style:none}
+  .conn li{position:relative;padding-left:24px;margin-bottom:9px;color:#2B5265;font-size:16.5px}
+  .conn li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--sea)}
+  .dlist{list-style:none;background:var(--white);border-radius:14px;padding:6px 30px;box-shadow:0 20px 40px rgba(14,58,83,.07)}
+  .dlist li{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:19px 0;border-bottom:1px solid var(--line);align-items:start}
+  .dlist li:last-child{border-bottom:0}
+  .dlist b{display:block;font-size:18px;line-height:1.35}
+  .dlist span{display:block;font-size:15.5px;color:var(--mute);margin-top:2px}
+
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:64px;counter-reset:s;position:relative}
+  .steps::before{content:"";position:absolute;top:0;left:0;right:0;border-top:3px dashed var(--line)}
+  .steps li{counter-increment:s;position:relative;padding-top:38px}
+  .steps li::before{content:counter(s);position:absolute;top:-21px;left:0;width:44px;height:44px;border-radius:50%;background:var(--sun);color:var(--ink);
+       font-family:var(--display);font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px var(--white)}
+  .steps h3{font-size:19px;font-weight:700;margin-bottom:6px}
+  .steps p{font-size:15.5px;color:var(--mute)}
+
+  /* markets */
+  .markets{background:var(--ink);color:var(--white)}
+  .markets .sub{color:#C5DEE7}
+  .mk{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+  .mk button{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:22px;transition:all .2s;display:block}
+  .mk button:hover{border-color:var(--sun)}
+  .mk button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+  .mk button[aria-pressed="true"]{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+  .mk b{font-family:var(--display);font-size:22px;display:block}
+  .mk small{display:block;font-size:13px;opacity:.75;margin-top:2px}
+  .mk-note{margin-top:22px;min-height:56px;font-size:17px;color:#E1EEF2;max-width:70ch;border-left:3px solid var(--sun);padding:4px 0 4px 18px}
+
+  /* faq */
+  .faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+  details{border-bottom:1px solid var(--line)}
+  details:first-child{border-top:1px solid var(--line)}
+  summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;font-weight:700;font-size:18px;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;border-right:2.5px solid var(--sea);border-bottom:2.5px solid var(--sea);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+  details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+  details p{padding:0 0 22px;color:var(--mute);max-width:60ch}
+
+  .story{background:var(--shallow)}
+  .story-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
+  .say{font-size:15px;color:var(--mute);margin-top:12px}
+  .story p.body{font-size:18px;color:#2B5265}
+  .story p.body+p.body{margin-top:16px}
+  .kanji{font-family:var(--display);font-size:clamp(70px,10vw,130px);line-height:1;color:var(--sea);opacity:.18;margin-top:24px;letter-spacing:.06em}
+
+  .contact{background:var(--ink);color:var(--white)}
+  .contact .sub{color:#C5DEE7}
+  .formgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:start}
+  .where{margin-top:28px;font-size:16px;color:#C5DEE7}
+  .where p{margin-bottom:5px}
+  .where strong{color:var(--white)}
+  .formcard{background:var(--white);color:var(--ink);border-radius:16px;padding:30px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  label .opt{font-weight:400;color:var(--mute)}
+  input,select,textarea{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1px solid #A9C3CC;border-radius:8px;color:var(--ink);background:var(--white);transition:border-color .2s,box-shadow .2s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sea);box-shadow:0 0 0 4px rgba(29,122,156,.15)}
+  textarea{min-height:110px;resize:vertical}
+  .field{margin-bottom:16px}
+  .formcard .btn{width:100%;margin-top:4px}
+  .formnote{font-size:13px;color:var(--mute);margin-top:10px;text-align:center}
+
+  footer{background:#0A2C40;color:#A9C9D4;padding:40px 0;font-size:14px}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer strong{color:var(--white)}
+  footer a{color:#DCEBF0}
+
+  .float-cta{position:fixed;right:18px;bottom:18px;z-index:15;display:none}
+  .to-top{position:fixed;right:18px;bottom:18px;z-index:14;width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:center;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+  .to-top.show{opacity:1;pointer-events:auto}
+
+  @media (max-width:960px){
+    .burger{display:flex}
+    .right .btn{display:none}
+    .links{position:fixed;inset:72px 0 auto 0;flex-direction:column;gap:0;background:var(--white);padding:8px 28px 24px;border-bottom:1px solid var(--line);
+      box-shadow:0 20px 30px rgba(14,58,83,.12);transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s}
+    .links a{display:block;padding:14px 0;font-size:18px;border-bottom:1px solid var(--line)}
+    .links a::after{display:none}
+    .menu-open .links{transform:none;opacity:1;pointer-events:auto}
+    .hero{padding-top:44px}
+    .scene-box{margin-top:0}
+    .scene{width:160%;margin-left:-26%}
+    .three{grid-template-columns:1fr;gap:26px}
+    .three p{max-width:none}
+    .facts{grid-template-columns:1fr 1fr}
+    .tiles{grid-template-columns:1fr 1fr}
+    .search{margin-left:0;flex:1 1 100%}
+    .story-grid,.formgrid,.deliver-grid,.faq-grid{grid-template-columns:1fr;gap:30px}
+    .steps{grid-template-columns:1fr 1fr;row-gap:60px}
+    .steps::before{display:none}
+    .steps li::before{box-shadow:none}
+    .mk{grid-template-columns:1fr 1fr}
+    section{padding:64px 0}
+    .does{padding:28px 0 56px}
+    .float-cta{display:inline-flex}
+    .to-top{bottom:84px}
+  }
+  @media (max-width:560px){
+    .wrap{padding-left:18px;padding-right:18px}
+    .tiles{grid-template-columns:1fr;gap:32px}
+    .steps{grid-template-columns:1fr;row-gap:52px}
+    .row2{grid-template-columns:1fr}
+    .hero .lead{font-size:17.5px}
+    .cta .btn{width:100%}
+    .formcard{padding:22px}
+    .dlist{padding:4px 20px}
+    .brand small{display:none}
+    .lang button{padding:7px 10px}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="demo" data-i18n="demo.banner">Design demo for discussion — not a live website yet.</div>
+
+<header class="top" data-header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Umikoe, home">
+      <svg width="38" height="30" viewBox="0 0 38 30" aria-hidden="true">
+        <circle cx="27" cy="7" r="5" fill="#F5B82E"/>
+        <path d="M2 17 Q7.5 9.5 13 17 T24 17 T35 17" fill="none" stroke="#0E3A53" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M2 25.5 Q7.5 18 13 25.5 T24 25.5 T35 25.5" fill="none" stroke="#1D7A9C" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+      <span><b>Umikoe</b><small data-i18n="brand.sub">Japan trade desk</small></span>
+    </a>
+    <nav aria-label="Main" data-nav data-menu>
+      <ul class="links" id="menu">
+        <li><a href="#products" data-i18n="nav.products">Products</a></li>
+        <li><a href="#deliver" data-i18n="nav.deliver">What we deliver</a></li>
+        <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+        <li><a href="#markets" data-i18n="nav.markets">Markets</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="ja" aria-pressed="false" lang="ja">日本語</button>
+      </div>
+      <a class="btn go small" href="#contact" data-i18n="nav.cta">Send a request</a>
+      <button class="burger" type="button" data-menu-toggle aria-controls="menu" aria-expanded="false" data-i18n-aria="menu" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="hero.eyebrow">Japan trade desk · Ginza, Tokyo</span>
+      <h1 data-i18n="hero.title">From Japan’s makers, across the sea to your market.</h1>
+      <p class="lead" data-i18n="hero.lead">Umikoe connects overseas importers and distributors with trusted Japanese makers, and handles the conversation in English and Japanese from first request to first order.</p>
+      <div class="cta">
+        <a class="btn go" href="#contact" data-i18n="hero.cta1">Send a sourcing request</a>
+        <a class="btn plain" href="#products" data-i18n="hero.cta2">See what we source</a>
+      </div>
+    </div>
+    <div class="scene-box">
+<svg class="scene" viewBox="0 0 1440 520" role="img" aria-label="A cargo ship leaving a Japanese port with Mount Fuji behind it, sailing toward a city across the sea">
+        <!-- sky -->
+        <circle cx="1058" cy="230" r="64" fill="#F8CE62"/>
+        <g fill="#FFFFFF">
+          <rect x="560" y="150" width="130" height="26" rx="13"/><rect x="600" y="134" width="70" height="26" rx="13"/>
+          <rect x="1180" y="118" width="110" height="22" rx="11"/><rect x="1210" y="104" width="56" height="22" rx="11"/>
+        </g>
+        <path d="M760 196 q9 -9 18 0 q9 -9 18 0 M812 172 q7 -7 14 0 q7 -7 14 0" fill="none" stroke="#0E3A53" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- Japan side -->
+        <path d="M20 348 L250 150 Q262 142 274 150 L522 348 Z" fill="#B9D6DE"/>
+        <path d="M250 150 Q262 142 274 150 L312 180 L294 172 L280 188 L264 174 L248 188 L232 172 L215 180 Z" fill="#FFFFFF"/>
+
+        <!-- far sea -->
+        <rect x="0" y="340" width="1440" height="180" fill="#3A9DBD"/>
+
+        <!-- city side -->
+        <g>
+          <rect x="1158" y="250" width="42" height="80" fill="#B9D6DE"/>
+          <rect x="1204" y="212" width="34" height="118" fill="#9CC3CE"/>
+          <rect x="1242" y="168" width="30" height="162" fill="#B9D6DE"/><rect x="1255" y="124" width="4" height="46" fill="#B9D6DE"/>
+          <rect x="1276" y="232" width="46" height="98" fill="#9CC3CE"/>
+          <rect x="1326" y="190" width="38" height="140" fill="#B9D6DE"/>
+          <rect x="1368" y="246" width="72" height="84" fill="#9CC3CE"/>
+          <g fill="#FFFFFF" opacity=".75">
+            <rect x="1211" y="224" width="6" height="8"/><rect x="1224" y="224" width="6" height="8"/><rect x="1211" y="244" width="6" height="8"/><rect x="1224" y="244" width="6" height="8"/><rect x="1211" y="264" width="6" height="8"/><rect x="1224" y="264" width="6" height="8"/>
+            <rect x="1334" y="204" width="6" height="8"/><rect x="1349" y="204" width="6" height="8"/><rect x="1334" y="226" width="6" height="8"/><rect x="1349" y="226" width="6" height="8"/><rect x="1334" y="248" width="6" height="8"/><rect x="1349" y="248" width="6" height="8"/>
+            <rect x="1286" y="246" width="6" height="8"/><rect x="1304" y="246" width="6" height="8"/><rect x="1286" y="268" width="6" height="8"/><rect x="1304" y="268" width="6" height="8"/>
+          </g>
+          <rect x="1130" y="324" width="310" height="22" fill="#E3ECEF"/>
+          <rect x="1130" y="346" width="310" height="174" fill="#A9BEC6"/>
+        </g>
+
+        <!-- Japan quay -->
+        <g>
+          <rect x="0" y="324" width="392" height="22" fill="#E3ECEF"/>
+          <rect x="0" y="346" width="392" height="174" fill="#A9BEC6"/>
+          <!-- warehouse -->
+          <rect x="34" y="264" width="118" height="60" fill="#FFFFFF"/>
+          <path d="M24 266 L93 238 L162 266 Z" fill="#0E3A53"/>
+          <rect x="78" y="290" width="30" height="34" fill="#9CCBD6"/>
+          <!-- stacked containers -->
+          <g>
+            <rect x="176" y="306" width="34" height="18" fill="#E8644A"/><rect x="212" y="306" width="34" height="18" fill="#1D7A9C"/><rect x="248" y="306" width="34" height="18" fill="#F5B82E"/>
+            <rect x="194" y="286" width="34" height="18" fill="#FFFFFF"/><rect x="230" y="286" width="34" height="18" fill="#3FA796"/>
+            <rect x="212" y="266" width="34" height="18" fill="#E8644A"/>
+          </g>
+          <!-- crane -->
+          <g fill="none" stroke="#E8644A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M306 324 L314 204 M370 324 L362 204 M309 284 L367 244 M311 244 L365 284"/>
+            <path d="M284 204 H470"/>
+            <path d="M314 204 L338 160 L362 204 M338 160 L466 204 M338 160 L288 204" stroke-width="3"/>
+          </g>
+          <rect x="420" y="198" width="26" height="12" fill="#0E3A53"/>
+          <path d="M427 210 V246 M439 210 V246" stroke="#0E3A53" stroke-width="2"/>
+          <rect x="416" y="246" width="34" height="18" fill="#F5B82E"/>
+        </g>
+
+        <!-- ship -->
+        <g class="ship"><g class="bob"><g transform="translate(630 0)">
+          <path d="M-58 356 h40 M-108 356 h28" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+          <rect x="34" y="214" width="20" height="28" fill="#F5B82E"/><rect x="34" y="214" width="20" height="8" fill="#0E3A53"/>
+          <rect x="24" y="240" width="50" height="20" fill="#FFFFFF"/>
+          <rect x="16" y="258" width="66" height="62" fill="#FFFFFF"/>
+          <g fill="#0E3A53"><rect x="24" y="268" width="8" height="8"/><rect x="38" y="268" width="8" height="8"/><rect x="52" y="268" width="8" height="8"/><rect x="66" y="268" width="8" height="8"/><rect x="24" y="286" width="8" height="8"/><rect x="38" y="286" width="8" height="8"/><rect x="52" y="286" width="8" height="8"/><rect x="66" y="286" width="8" height="8"/></g>
+          <rect x="94" y="300" width="32" height="18" fill="#E8644A"/><rect x="128" y="300" width="32" height="18" fill="#3FA796"/><rect x="162" y="300" width="32" height="18" fill="#F5B82E"/><rect x="196" y="300" width="32" height="18" fill="#FFFFFF"/><rect x="230" y="300" width="32" height="18" fill="#1D7A9C"/><rect x="264" y="300" width="32" height="18" fill="#E8644A"/><rect x="94" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="280" width="32" height="18" fill="#E8644A"/><rect x="162" y="280" width="32" height="18" fill="#9CCBD6"/><rect x="196" y="280" width="32" height="18" fill="#F5B82E"/><rect x="230" y="280" width="32" height="18" fill="#3FA796"/><rect x="264" y="280" width="32" height="18" fill="#FFFFFF"/><rect x="128" y="260" width="32" height="18" fill="#F5B82E"/><rect x="162" y="260" width="32" height="18" fill="#1D7A9C"/><rect x="196" y="260" width="32" height="18" fill="#E8644A"/><rect x="230" y="260" width="32" height="18" fill="#3FA796"/>
+          <path d="M0 318 H302 L320 304 H368 L338 376 H16 Z" fill="#0E3A53"/>
+          <path d="M9 356 H346 L338 376 H16 Z" fill="#E8644A"/>
+        </g></g></g>
+
+        <!-- waves -->
+        <path class="wave1" d="M-120 366 Q-90.0 360 -60.0 366 T0.0 366 T60.0 366 T120.0 366 T180.0 366 T240.0 366 T300.0 366 T360.0 366 T420.0 366 T480.0 366 T540.0 366 T600.0 366 T660.0 366 T720.0 366 T780.0 366 T840.0 366 T900.0 366 T960.0 366 T1020.0 366 T1080.0 366 T1140.0 366 T1200.0 366 T1260.0 366 T1320.0 366 T1380.0 366 T1440.0 366 T1500.0 366 T1560.0 366 V520 H-120 Z" fill="#1D7A9C"/>
+        <path class="wave2" d="M-130 412 Q-87.5 403 -45.0 412 T40.0 412 T125.0 412 T210.0 412 T295.0 412 T380.0 412 T465.0 412 T550.0 412 T635.0 412 T720.0 412 T805.0 412 T890.0 412 T975.0 412 T1060.0 412 T1145.0 412 T1230.0 412 T1315.0 412 T1400.0 412 T1485.0 412 T1570.0 412 T1655.0 412 V520 H-130 Z" fill="#166785"/>
+        <path d="M-140 466 Q-82.5 454 -25.0 466 T90.0 466 T205.0 466 T320.0 466 T435.0 466 T550.0 466 T665.0 466 T780.0 466 T895.0 466 T1010.0 466 T1125.0 466 T1240.0 466 T1355.0 466 T1470.0 466 T1585.0 466 T1700.0 466 V520 H-140 Z" fill="#0E3A53"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="does">
+    <div class="wrap">
+      <div class="three">
+        <div class="reveal"><h3 data-i18n="does.1.t">We source</h3><p data-i18n="does.1.p"></p></div>
+        <div class="reveal"><h3 data-i18n="does.2.t">We connect</h3><p data-i18n="does.2.p"></p></div>
+        <div class="reveal"><h3 data-i18n="does.3.t">We support</h3><p data-i18n="does.3.p"></p></div>
+      </div>
+      <div class="facts reveal">
+        <div><b data-i18n="fact.1.n">6</b><span data-i18n="fact.1.l"></span></div>
+        <div><b data-i18n="fact.2.n">2</b><span data-i18n="fact.2.l"></span></div>
+        <div><b data-i18n="fact.3.n">4</b><span data-i18n="fact.3.l"></span></div>
+        <div><b data-i18n="fact.4.n">1</b><span data-i18n="fact.4.l"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="products">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <span class="eyebrow" data-i18n="nav.products">Products</span>
+          <h2 data-i18n="products.title" style="margin-top:10px">What we can source today</h2>
+          <p class="sub" data-i18n="products.sub"></p>
+        </div>
+      </div>
+      <div class="tools">
+        <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+        <label class="search"><span class="sr-only" data-i18n="search.label">Search products</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#4F6B79" stroke-width="2"/><path d="M11 11 L15 15" stroke="#4F6B79" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="q" data-i18n-ph="search.ph" placeholder="Search products…">
+        </label>
+      </div>
+      <div class="tiles" id="tiles" aria-live="polite"></div>
+      <p class="empty" id="empty" hidden data-i18n="search.none"></p>
+    </div>
+  </section>
+
+  <section id="deliver" class="deliver">
+    <div class="wrap deliver-grid">
+      <div class="reveal">
+        <h2 data-i18n="deliver.title">What we can deliver</h2>
+        <p class="sub" data-i18n="deliver.sub"></p>
+        <div class="conn">
+          <h3 data-i18n="conn.title">Our connections in Japan</h3>
+          <ul><li data-i18n="conn.1"></li><li data-i18n="conn.2"></li><li data-i18n="conn.3"></li></ul>
+        </div>
+      </div>
+      <ul class="dlist reveal" id="dlist"></ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2 data-i18n="how.title">How it works</h2>
+      <p class="sub" data-i18n="how.sub"></p>
+      <ol class="steps">
+        <li class="reveal"><h3 data-i18n="step.1.t"></h3><p data-i18n="step.1.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.2.t"></h3><p data-i18n="step.2.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.3.t"></h3><p data-i18n="step.3.p"></p></li>
+        <li class="reveal"><h3 data-i18n="step.4.t"></h3><p data-i18n="step.4.p"></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="markets" class="markets">
+    <div class="wrap">
+      <h2 data-i18n="markets.title">Where we are starting</h2>
+      <p class="sub" data-i18n="markets.sub"></p>
+      <div class="mk" id="mk" role="group" aria-label="Markets"></div>
+      <p class="mk-note" id="mk-note" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq-grid">
+      <div><h2 data-i18n="faq.title">Questions buyers ask</h2></div>
+      <div>
+        <details><summary data-i18n="faq.1.q"></summary><p data-i18n="faq.1.a"></p></details>
+        <details><summary data-i18n="faq.2.q"></summary><p data-i18n="faq.2.a"></p></details>
+        <details><summary data-i18n="faq.3.q"></summary><p data-i18n="faq.3.a"></p></details>
+        <details><summary data-i18n="faq.4.q"></summary><p data-i18n="faq.4.a"></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="story">
+    <div class="wrap story-grid">
+      <div>
+        <h2 data-i18n="story.title">Umikoe means “across the sea.”</h2>
+        <p class="say" data-i18n="story.say"></p>
+        <div class="kanji" lang="ja" aria-hidden="true">海越え</div>
+      </div>
+      <div class="reveal">
+        <p class="body" data-i18n="story.p1"></p>
+        <p class="body" data-i18n="story.p2"></p>
+        <p class="body" data-i18n="story.p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap formgrid">
+      <div>
+        <h2 data-i18n="contact.title">Send a sourcing request</h2>
+        <p class="sub" data-i18n="contact.sub"></p>
+        <div class="where">
+          <p><strong data-i18n="contact.org">Umikoe, by Social Design Collective LLC</strong></p>
+          <p data-i18n="contact.addr">N&amp;E BLD. 6F, 1-12-4 Ginza, Chuo-ku, Tokyo</p>
+          <p><a href="mailto:info@sd-c.net">info@sd-c.net</a></p>
+        </div>
+      </div>
+      <div class="formcard">
+        <form data-umikoe-form novalidate>
+          <div class="row2">
+            <div class="field"><label for="n" data-i18n="form.name">Your name</label><input id="n" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="c"><span data-i18n="form.company">Company</span> <span class="opt">(<span data-i18n="form.optional">optional</span>)</span></label><input id="c" name="company" autocomplete="organization"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="co" data-i18n="form.country">Country</label><input id="co" name="country" list="u-countries" autocomplete="country-name" required></div>
+            <div class="field"><label for="e" data-i18n="form.email">Email</label><input id="e" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="p" data-i18n="form.product">Product group</label><select id="p" name="product"></select></div>
+          <div class="field"><label for="m" data-i18n="form.message">What are you looking for?</label><textarea id="m" name="message" data-i18n-ph="form.message.ph" required></textarea></div>
+          <div class="hp" aria-hidden="true"><input name="_hp" tabindex="-1" autocomplete="off"></div>
+          <button class="btn go" type="submit" data-i18n="form.submit">Send request</button>
+          <p class="formnote" data-i18n="form.note"></p>
+        </form>
+        <div data-form-status role="status" tabindex="-1" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong>Umikoe</strong><br><span data-i18n="footer.tag"></span></div>
+    <div><span data-i18n="footer.by"></span><br><a href="mailto:info@sd-c.net">info@sd-c.net</a> · © <span data-year></span></div>
+  </div>
+</footer>
+
+<a class="btn go float-cta" href="#contact" data-i18n="nav.cta">Send a request</a>
+<a class="to-top" href="#top" data-to-top data-i18n-aria="footer.top" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 11 L9 5 L15 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+<script src="assets/umikoe.js"></script>
+<script>
+(function () {
+  var U = window.Umikoe;
+  var check = '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#F5B82E"/><path d="M8.5 15.5 L13 20 L21.5 10.5" fill="none" stroke="#0E3A53" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  U.catalog({
+    grid: '#tiles', filters: '#chips', search: '#q', empty: '#empty',
+    card: function (p) {
+      return '<a class="tile" href="#products" data-open-product="' + p.id + '">' +
+        '<div class="box" style="background-color:' + p.color + '">' + p.icon + '</div>' +
+        '<h3>' + U.esc(U.t('p.' + p.id + '.n')) + '</h3>' +
+        '<p>' + U.esc(U.t('p.' + p.id + '.d')) + '</p>' +
+        U.tagsHTML(p, 'tag') + '<br><span class="more">' + U.esc(U.t('product.more')) + '</span></a>';
+    }
+  });
+
+  U.onLang(function () {
+    var html = '';
+    for (var i = 1; i <= 6; i++) html += '<li>' + check + '<div><b>' + U.esc(U.t('dl.' + i + '.t')) + '</b><span>' + U.esc(U.t('dl.' + i + '.s')) + '</span></div></li>';
+    document.getElementById('dlist').innerHTML = html;
+  });
+
+  // Markets: pick one to read its note.
+  var current = 'uae', mk = document.getElementById('mk'), note = document.getElementById('mk-note');
+  function drawMarkets() {
+    mk.innerHTML = U.markets.map(function (m) {
+      return '<button type="button" data-m="' + m + '" aria-pressed="' + (m === current) + '"><b>' + U.esc(U.t('market.' + m)) + '</b><small>' + U.esc(U.t('markets.from')) + ' →</small></button>';
+    }).join('');
+    note.textContent = U.t('market.' + current + '.note');
+  }
+  mk.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-m]'); if (!b) return;
+    current = b.getAttribute('data-m'); drawMarkets();
+    mk.querySelector('[data-m="' + current + '"]').focus();
+  });
+  U.onLang(drawMarkets);
+})();
+</script>
+</body>
+</html>
