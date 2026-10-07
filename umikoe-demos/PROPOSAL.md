@@ -26,7 +26,7 @@ You can also mix parts, for example Washi's look with Trade Desk's request form.
 ## 2. Packages
 
 ### A. Launch: one-page site
-**US$900 – 1,200 · 2–3 weeks**
+**¥140,000 – 190,000** *(≈ US$900 – 1,200)* · **2–3 weeks**
 - Your chosen concept, finished and polished
 - English + Japanese (your team supplies or checks the Japanese text)
 - Request form delivered to your inbox (e.g. info@sd-c.net), with spam protection
@@ -37,7 +37,7 @@ You can also mix parts, for example Washi's look with Trade Desk's request form.
 - 14 days of bug fixes after launch
 
 ### B. Growth: multi-page site *(recommended)*
-**US$1,800 – 2,600 · 4–6 weeks**
+**¥285,000 – 410,000** *(≈ US$1,800 – 2,600)* · **4–6 weeks**
 
 Everything in **Launch**, plus:
 - Separate pages: Home, Products, **6 product-group pages**, How it works, About, Contact, Privacy policy
@@ -49,7 +49,7 @@ Everything in **Launch**, plus:
 - 3 rounds of design changes, a 1-hour training call, and 30 days of support
 
 ### C. Platform: buyer portal
-**US$4,000 – 6,500 · 8–10 weeks**
+**¥630,000 – 1,030,000** *(≈ US$4,000 – 6,500)* · **8–10 weeks**
 
 Everything in **Growth**, plus:
 - Buyer accounts: buyers log in and see the status of each request (Requested → Makers found → Samples → Shipped)
@@ -63,11 +63,11 @@ Everything in **Growth**, plus:
 ### Optional extras (any package)
 | Extra | Price |
 |---|---|
-| Professional Japanese translation (about 2,500 words) | US$200 – 400 |
-| Logo refresh / brand guide | US$250 – 500 |
-| Custom illustrations per product group | US$60 – 120 each |
-| Extra language (per language) | US$300 – 600 + translation |
-| Monthly care plan: updates, backups, small edits, report | US$50 – 150 / month |
+| Professional Japanese translation (about 2,500 words) | ¥30,000 – 65,000 |
+| Logo refresh / brand guide | ¥40,000 – 80,000 |
+| Custom illustrations per product group | ¥10,000 – 19,000 each |
+| Extra language (per language) | ¥47,000 – 95,000 + translation |
+| Monthly care plan: updates, backups, small edits, report | ¥8,000 – 24,000 / month |
 
 ---
 
@@ -75,17 +75,17 @@ Everything in **Growth**, plus:
 
 | Item | Recommended option | Approx. cost |
 |---|---|---|
-| **Domain `umikoe.com`** | Cloudflare, Namecheap or Porkbun | US$11 – 20 / year |
-| **Domain `umikoe.jp`** *(optional, redirects to .com)* | Any .jp registrar; needs a Japanese address, which you have | about ¥3,000 – 10,000 / year (≈ US$28 – 60) |
-| **Hosting** | Netlify, Cloudflare Pages or Vercel | **Free** for a site this size; ~US$19–20/month only if traffic grows a lot |
+| **Domain `umikoe.com`** | Cloudflare, Namecheap or Porkbun | ¥1,700 – 3,200 / year |
+| **Domain `umikoe.jp`** *(optional, redirects to .com)* | Any .jp registrar; needs a Japanese address, which you have | ¥3,000 – 10,000 / year |
+| **Hosting** | Netlify, Cloudflare Pages or Vercel | **Free** for a site this size; ~¥3,000/month only if traffic grows a lot |
 | **SSL (https)** | Included with hosting | Free |
-| **Form inbox** | Formspree (or similar) | Free up to 50 requests/month; US$10/month for 1,000 |
+| **Form inbox** | Formspree (or similar) | Free up to 50 requests/month; ~¥1,600/month for 1,000 |
 | **Content editor (CMS)** — Growth & Platform | Git-based CMS (Decap / Sveltia) | Free |
-| **Business email** `you@umikoe.com` *(optional)* | Google Workspace Business Starter | US$7 / user / month (yearly) or US$8.40 flexible |
+| **Business email** `you@umikoe.com` *(optional)* | Google Workspace Business Starter | ~¥1,100 / user / month (yearly plan) or ~¥1,330 flexible |
 | | or keep using info@sd-c.net | Free |
-| **Platform package only:** database + logins | Supabase / Firebase | Free tier at first, ~US$25/month later |
+| **Platform package only:** database + logins | Supabase / Firebase | Free tier at first, ~¥4,000/month later |
 
-**Typical yearly total for Launch or Growth:** about **US$15 – 80 per year** (domains only), plus email and form plans if you choose them.
+**Typical yearly total for Launch or Growth:** about **¥2,000 – 13,000 per year** (domains only), plus email and form plans if you choose them.
 
 > Please check that **umikoe.com** and **umikoe.jp** are available before we start. If .com is taken, good options are `umikoe.co`, `umikoe-trade.com` or `umikoe.jp` as the main address.
 
@@ -116,7 +116,7 @@ Everything in **Growth**, plus:
 | When you approve the final design | 30% |
 | At launch | 30% |
 
-Payment by bank transfer, Wise or PayPal. You own the domain, the hosting account, the content and the finished code.
+Invoices in Japanese yen. Payment by bank transfer, Wise or PayPal. You own the domain, the hosting account, the content and the finished code.
 
 ---
 
@@ -137,4 +137,4 @@ Payment by bank transfer, Wise or PayPal. You own the domain, the hosting accoun
 
 Reply with your chosen concept and package, and I will send the invoice for the first payment and book the kick-off call. Questions are welcome at any time.
 
-*Prices are estimates. Third-party prices (domains, email, forms, hosting) are set by those companies and may change; they were checked in October 2026.*
+*Prices are estimates. Yen amounts are converted at about ¥158 = US$1 (7 October 2026) and rounded. Third-party prices (domains, email, forms, hosting) are set by those companies, may be billed in US$, and may change; they were checked in October 2026.*
